@@ -1,0 +1,2643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamentals of Nursing Care Flashcards - 2024 Proctored Exam</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a5f7a, #159895);
+            min-height: 100vh;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            height: 95vh;
+            max-height: 95vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #159895, #1a5f7a);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" opacity="0.1"><path d="M30,30 Q50,10 70,30 T90,50 T70,70 T50,90 T30,70 T10,50 T30,30 Z" fill="white"/></svg>');
+        }
+        
+        .header h1 {
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .header .subtitle {
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .progress {
+            background: #0f4c5c;
+            height: 8px;
+            width: 100%;
+            flex-shrink: 0;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #159895, #1a5f7a);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .flashcard {
+            padding: clamp(10px, 3vw, 20px);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #f8f9fa;
+            overflow-y: auto;
+        }
+        
+        .question-container {
+            display: flex;
+            gap: clamp(10px, 2vw, 15px);
+            align-items: flex-start;
+            margin-bottom: clamp(10px, 2vw, 15px);
+        }
+        
+        .question-icon {
+            background: #1a5f7a;
+            color: white;
+            width: clamp(35px, 8vw, 50px);
+            height: clamp(35px, 8vw, 50px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 4px 8px rgba(26, 95, 122, 0.3);
+        }
+        
+        .question {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            line-height: 1.6;
+            color: #2c3e50;
+            flex-grow: 1;
+            font-weight: 500;
+        }
+        
+        .image-container {
+            margin: clamp(8px, 2vw, 15px) 0;
+            text-align: center;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            max-height: clamp(120px, 20vh, 180px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ecf0f1;
+        }
+        
+        .concept-image {
+            max-width: 100%;
+            max-height: clamp(110px, 18vh, 160px);
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .hint-container {
+            margin: clamp(8px, 2vw, 15px) 0;
+            text-align: center;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(6px, 1.5vw, 10px);
+            margin-bottom: clamp(10px, 2vw, 20px);
+            flex: 1;
+        }
+        
+        .option {
+            padding: clamp(10px, 2vw, 14px) clamp(12px, 2.5vw, 18px);
+            border: 2px solid #bdc3c7;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: clamp(8px, 1.5vw, 10px);
+            font-size: clamp(0.85rem, 2vw, 1rem);
+        }
+        
+        .option:hover {
+            background: #e9ecef;
+            border-color: #95a5a6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .option-letter {
+            background: #ecf0f1;
+            color: #2c3e50;
+            width: clamp(24px, 5vw, 28px);
+            height: clamp(24px, 5vw, 28px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .option.correct .option-letter {
+            background: #28a745;
+            color: white;
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        
+        .option.incorrect .option-letter {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .feedback {
+            padding: clamp(12px, 2.5vw, 16px);
+            border-radius: 12px;
+            margin-bottom: clamp(10px, 2vw, 16px);
+            display: none;
+            align-items: center;
+            gap: clamp(8px, 1.5vw, 12px);
+            font-weight: 500;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            display: flex;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            color: #721c24;
+            display: flex;
+        }
+        
+        .feedback-icon {
+            font-size: clamp(1.2rem, 3vw, 1.4rem);
+            flex-shrink: 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(12px, 2.5vw, 16px) clamp(16px, 3vw, 24px);
+            background: #ecf0f1;
+            border-top: 1px solid #bdc3c7;
+            flex-shrink: 0;
+        }
+        
+        .counter {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: clamp(0.85rem, 2vw, 1rem);
+        }
+        
+        .btn {
+            padding: clamp(10px, 2vw, 12px) clamp(15px, 2.5vw, 20px);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: clamp(6px, 1vw, 8px);
+            font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+            white-space: nowrap;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #159895, #1a5f7a);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(21, 152, 149, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(149, 165, 166, 0.3);
+        }
+        
+        .btn-hint {
+            background: linear-gradient(135deg, #ffc107, #ff9800);
+            color: white;
+            padding: clamp(8px, 1.5vw, 10px) clamp(12px, 2vw, 16px);
+            font-size: clamp(0.75rem, 1.6vw, 0.85rem);
+        }
+        
+        .btn-hint:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 193, 7, 0.3);
+        }
+        
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .rationale {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 2px solid #ffd43b;
+            border-radius: 12px;
+            padding: clamp(12px, 2.5vw, 16px);
+            margin-top: clamp(8px, 1.5vw, 12px);
+            display: none;
+        }
+        
+        .rationale.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .rationale h4 {
+            color: #856404;
+            margin-bottom: clamp(6px, 1.2vw, 10px);
+            display: flex;
+            align-items: center;
+            gap: clamp(6px, 1.2vw, 8px);
+            font-size: clamp(0.9rem, 2.2vw, 1.1rem);
+        }
+        
+        .rationale p {
+            color: #856404;
+            line-height: 1.6;
+            font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+        }
+        
+        .hint {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px dashed #2196f3;
+            border-radius: 12px;
+            padding: clamp(12px, 2.5vw, 16px);
+            margin-top: clamp(6px, 1.2vw, 10px);
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .hint.show {
+            display: block;
+        }
+        
+        .hint h4 {
+            color: #1565c0;
+            margin-bottom: clamp(6px, 1.2vw, 8px);
+            display: flex;
+            align-items: center;
+            gap: clamp(5px, 1vw, 6px);
+            font-size: clamp(0.85rem, 2vw, 1rem);
+        }
+        
+        .hint p {
+            color: #1565c0;
+            line-height: 1.5;
+            font-size: clamp(0.75rem, 1.6vw, 0.9rem);
+            font-style: italic;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stats {
+            display: flex;
+            gap: clamp(8px, 1.5vw, 15px);
+            justify-content: center;
+            margin-top: clamp(4px, 1vw, 10px);
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            background: rgba(255,255,255,0.2);
+            padding: clamp(5px, 1vw, 6px) clamp(8px, 1.8vw, 12px);
+            border-radius: 20px;
+            font-size: clamp(0.7rem, 1.6vw, 0.85rem);
+            white-space: nowrap;
+        }
+        
+        .cancel-selection {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            margin: 0 auto clamp(10px, 2vw, 15px) auto;
+            display: none;
+        }
+        
+        .cancel-selection:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 107, 107, 0.3);
+        }
+        
+        .cancel-selection.show {
+            display: flex;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 15px;
+            }
+            
+            .question-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+            
+            .question-icon {
+                align-self: center;
+            }
+            
+            .navigation {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .btn {
+                padding: 10px 16px;
+                flex: 1;
+                justify-content: center;
+                min-width: 120px;
+            }
+            
+            .counter {
+                order: -1;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚕️ Fundamentals of Nursing Care Flashcards</h1>
+            <div class="subtitle">2024 Proctored Exam - 149 Questions with Verified Answers</div>
+            <div class="stats">
+                <div class="stat">🎯 149 Questions</div>
+                <div class="stat">📅 2024 Updated</div>
+                <div class="stat">💡 Hint Feature</div>
+                <div class="stat">📖 Visual Learning</div>
+                <div class="stat">↩️ Cancel Wrong Answers</div>
+            </div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="flashcard">
+            <div class="question-container">
+                <div class="question-icon">?</div>
+                <div class="question" id="question"></div>
+            </div>
+            <div class="image-container" id="imageContainer">
+                <img class="concept-image" id="conceptImage" alt="Educational illustration">
+            </div>
+            
+            <div class="hint-container">
+                <button class="btn btn-hint" id="hintBtn" onclick="showHint()">
+                    💡 Show Hint
+                </button>
+                <div class="hint" id="hint">
+                    <h4>💡 Study Tip:</h4>
+                    <p id="hintText"></p>
+                </div>
+            </div>
+            
+            <div class="options" id="options"></div>
+            
+            <button class="btn cancel-selection" id="cancelBtn" onclick="cancelSelection()">
+                ↩️ Cancel Selection
+            </button>
+            
+            <div class="feedback" id="feedback">
+                <div class="feedback-icon" id="feedbackIcon"></div>
+                <div id="feedbackText"></div>
+            </div>
+            <div class="rationale" id="rationale">
+                <h4>💡 Rationale:</h4>
+                <p id="rationaleText"></p>
+            </div>
+        </div>
+        
+        <div class="navigation">
+            <button class="btn btn-secondary" id="prevBtn" onclick="previousCard()">
+                ⬅️ Previous
+            </button>
+            <div class="counter" id="counter">1/149</div>
+            <button class="btn btn-primary" id="nextBtn" onclick="nextCard()">
+                Next ➡️
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const nursingImages = {
+            'patient_education': 'https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=400&h=200&fit=crop',
+            'medication_safety': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=200&fit=crop',
+            'infection_control': 'https://images.unsplash.com/photo-1599669454699-248893623440?w=400&h=200&fit=crop',
+            'therapeutic_communication': 'https://images.unsplash.com/photo-1584467735871-8db9ac8e5e3a?w=400&h=200&fit=crop',
+            'patient_safety': 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400&h=200&fit=crop',
+            'wound_care': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=200&fit=crop',
+            'nutrition': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=200&fit=crop',
+            'laboratory_values': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=200&fit=crop',
+            'emergency_care': 'https://images.unsplash.com/photo-1584467735871-8db9ac8e5e3a?w=400&h=200&fit=crop',
+            'patient_assessment': 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&h=200&fit=crop'
+        };
+
+        const questions = [
+            {
+                question: "1. A client and her partner ask the nurse for information about permanent contraception. Which of the following statements should the nurse include in the counseling?",
+                options: [
+                    "Most sterilization procedures are considered irreversible",
+                    "A woman should use contraception for 1-2 months after a tubal ligation",
+                    "A man is usually sterile immediately after a vasectomy",
+                    "The menstrual cycle is shorter after a tubal ligation"
+                ],
+                correct: 0,
+                rationale: "Sterilization procedures like tubal ligation and vasectomy are considered permanent and generally irreversible. Patients should be counseled about this before consenting to the procedure.",
+                image: 'patient_education',
+                hint: "Consider the permanent nature of sterilization procedures."
+            },
+            {
+                question: "2. A nurse is planning care for a newborn who has neonatal abstinence syndrome. Which of the following interventions should the nurse include in the plan of care?",
+                options: [
+                    "Swaddle the newborn in a flexed position",
+                    "Weigh the newborn every other day",
+                    "Increase the newborn's visual stimulation",
+                    "Discourage parental interaction until after a social service evaluation"
+                ],
+                correct: 0,
+                rationale: "Swaddling in a flexed position provides comfort and security for newborns experiencing withdrawal symptoms from neonatal abstinence syndrome.",
+                image: 'patient_safety',
+                hint: "Think about comfort measures for withdrawal symptoms."
+            },
+            {
+                question: "3. A nurse is providing teaching about increasing dietary fiber to an antepartum client who reports constipation. Which of the following food selections has the highest fiber content per cup?",
+                options: [
+                    "Lentils",
+                    "Oatmeal",
+                    "Cabbage",
+                    "Asparagus"
+                ],
+                correct: 0,
+                rationale: "Lentils contain approximately 15.6 grams of fiber per cup, making them an excellent source of dietary fiber compared to the other options.",
+                image: 'nutrition',
+                hint: "Consider plant-based protein sources high in fiber."
+            },
+            {
+                question: "4. A nurse is teaching a client who is pregnant about a new prescription for iron supplements. Which of the following instructions should the nurse include in the teaching?",
+                options: [
+                    "Increase intake of foods rich in vitamin C",
+                    "Take an extra pill if you miss a dose",
+                    "Report black stools to the provider",
+                    "Drink 8 oz of milk with each pill"
+                ],
+                correct: 0,
+                rationale: "Vitamin C enhances iron absorption. Taking iron supplements with vitamin C-rich foods or beverages can improve absorption efficiency.",
+                image: 'medication_safety',
+                hint: "Think about what enhances mineral absorption."
+            },
+            {
+                question: "5. A nurse is caring for a preterm newborn immediately after delivery. Which of the following actions should the nurse take first?",
+                options: [
+                    "Dry the infant under the radiant warmer",
+                    "Take the infant's temperature",
+                    "Weigh the infant",
+                    "Obtain the infant's blood glucose"
+                ],
+                correct: 0,
+                rationale: "Drying the infant under a radiant warmer is the priority to prevent heat loss through evaporation, which is critical for thermoregulation in preterm newborns.",
+                image: 'emergency_care',
+                hint: "Consider thermoregulation as a primary concern for newborns."
+            },
+            {
+                question: "6. A nurse is discussing family planning with a client who has a history of DVT. The nurse should inform the client that this condition is a contraindication for which of the following birth control methods?",
+                options: [
+                    "Oral contraceptive",
+                    "Cervical cap",
+                    "Diaphragm",
+                    "Intrauterine device"
+                ],
+                correct: 0,
+                rationale: "Oral contraceptives contain estrogen, which increases the risk of thromboembolic events in clients with a history of deep vein thrombosis (DVT).",
+                image: 'patient_safety',
+                hint: "Consider medications that affect coagulation."
+            },
+            {
+                question: "7. A nurse is teaching a client who is postpartum about car seat safety. Which of the following statements indicates an understanding of the instructions?",
+                options: [
+                    "I will make sure the retainer clip is at the level of my baby's abdomen",
+                    "I will position the car seat in the front passenger seat facing the front of the car",
+                    "I will adjust the angle of the car seat so that my baby sits at a 90-degree angle",
+                    "I will place the shoulder harness slightly below my baby's shoulders"
+                ],
+                correct: 0,
+                rationale: "The retainer clip should be positioned at armpit level to properly secure the harness straps and provide optimal protection in a crash.",
+                image: 'patient_education',
+                hint: "Think about proper harness positioning for infant safety."
+            },
+            {
+                question: "8. A nurse is monitoring a newborn whose mother reports recent opiate use for neonatal abstinence syndrome. Which of the following findings indicates narcotic withdrawal?",
+                options: [
+                    "Excessive Crying",
+                    "Unequal pupils",
+                    "Respiratory rate of 50/min",
+                    "Hypotonia"
+                ],
+                correct: 0,
+                rationale: "Excessive crying is a common sign of neonatal abstinence syndrome, along with irritability, tremors, and feeding difficulties.",
+                image: 'patient_assessment',
+                hint: "Consider behavioral signs of withdrawal."
+            },
+            {
+                question: "9. A nurse is assessing the reflexes of a term newborn. After placing the newborn in the supine position, which of the following methods should the nurse use to elicit the Moro reflex?",
+                options: [
+                    "Make a loud noise above the newborn",
+                    "Touch the newborn's cheek with a finger",
+                    "Turn the newborn's head to one side",
+                    "Tap the newborn's forehead with a finger"
+                ],
+                correct: 0,
+                rationale: "The Moro reflex is elicited by suddenly jarring the crib or making a loud noise, causing the newborn to extend and then flex the arms and legs.",
+                image: 'patient_assessment',
+                hint: "Think about what startles a newborn."
+            },
+            {
+                question: "10. A nurse is providing teaching to a client who is postpartum about her car seat safety. Which of the following statements by the client indicates an understanding of the teaching?",
+                options: [
+                    "I will ensure that my baby is at a 45-degree angle in the car seat",
+                    "I will put my baby facing forward in the middle of the back seat of the car",
+                    "I will fasten the harness clip 1 inch above my baby's underarms",
+                    "I will swaddle my baby in a blanket before placing her in the car seat"
+                ],
+                correct: 0,
+                rationale: "A 45-degree angle helps maintain the newborn's airway and prevents slumping, which could cause respiratory compromise.",
+                image: 'patient_safety',
+                hint: "Consider airway positioning for infants."
+            },
+            {
+                question: "11. A nurse is teaching a client who is breastfeeding and has mastitis. Which of the following statements by the client indicates an understanding of the teaching?",
+                options: [
+                    "I should apply a warm compress after feeding",
+                    "I should apply lanolin to the infection site daily",
+                    "I should use a nipple shield while breastfeeding",
+                    "I should stop breastfeeding until the infection has healed"
+                ],
+                correct: 0,
+                rationale: "Applying warm compresses after feeding helps relieve discomfort and promote milk flow. Continued breastfeeding is recommended to prevent milk stasis.",
+                image: 'patient_education',
+                hint: "Consider comfort measures for breastfeeding difficulties."
+            },
+            {
+                question: "12. A nurse is caring for a client following a vaginal delivery of a term fetal demise. Which of the following statements should the nurse make?",
+                options: [
+                    "You can bathe and dress your baby if you'd like to",
+                    "You should name the baby so he can have an identity",
+                    "If you don't hold the baby, it will make letting go much harder",
+                    "I'm sure you will be able to have another baby when you're ready"
+                ],
+                correct: 0,
+                rationale: "Offering parents the opportunity to see, hold, and care for their baby facilitates the grieving process and creates meaningful memories.",
+                image: 'therapeutic_communication',
+                hint: "Consider therapeutic interventions for perinatal loss."
+            },
+            {
+                question: "13. A nurse is performing an initial assessment of a newborn who was delivered with a nuchal cord. Which of the following clinical findings should the nurse expect?",
+                options: [
+                    "Facial petechiae",
+                    "Erythema toxicum",
+                    "Periauricular papillomas",
+                    "Telangilectatic nevi"
+                ],
+                correct: 0,
+                rationale: "Facial petechiae can occur due to pressure from the umbilical cord around the neck during delivery, causing small broken blood vessels.",
+                image: 'patient_assessment',
+                hint: "Consider effects of cord compression during delivery."
+            },
+            {
+                question: "14. A charge nurse is discussing STIs with a newly licensed nurse. Which of the following infections should the nurse include in the teaching as an indication for a cesarean birth?",
+                options: [
+                    "HIV",
+                    "Chlamydia",
+                    "Gonorrhea",
+                    "Syphilis"
+                ],
+                correct: 0,
+                rationale: "For HIV-positive mothers with high viral loads, cesarean delivery before labor begins can reduce the risk of mother-to-child transmission.",
+                image: 'infection_control',
+                hint: "Consider infections that can be transmitted during vaginal delivery."
+            },
+            {
+                question: "15. A nurse is reviewing the medication prescriptions for a newborn who is 6 hours old and whose mother is HBsAg-positive. The nurse should anticipate administering which of the following medications?",
+                options: [
+                    "Hepatitis B Immune Globulin",
+                    "Hepatitis A immune globulin",
+                    "Haemophilus influenzae type B vaccine",
+                    "Hepatitis A vaccine"
+                ],
+                correct: 0,
+                rationale: "Newborns of HBsAg-positive mothers should receive Hepatitis B Immune Globulin and the first dose of Hepatitis B vaccine within 12 hours of birth.",
+                image: 'medication_safety',
+                hint: "Consider immunoprophylaxis for perinatal transmission."
+            },
+            {
+                question: "16. A nurse is assessing a client immediately following the placement of an epidural. The nurse obtains a maternal blood pressure of 96/54 and a fetal HR of 102/min. Which of the following actions should the nurse take?",
+                options: [
+                    "Position the client in a lateral position",
+                    "Administer naloxone to the client",
+                    "Prepare the client for an amnioinfusion",
+                    "Place the client in knee-chest position"
+                ],
+                correct: 0,
+                rationale: "Lateral positioning improves venous return and blood pressure, which can help correct fetal bradycardia related to maternal hypotension from the epidural.",
+                image: 'emergency_care',
+                hint: "Consider interventions for hypotension."
+            },
+            {
+                question: "17. A nurse is planning care for a full-term newborn who is receiving phototherapy. Which of the following actions should the nurse include in the plan of care?",
+                options: [
+                    "Avoid using lotion or ointment on the newborn's skin",
+                    "Dress the newborn in lightweight clothing",
+                    "Keep the newborn supine throughout treatment",
+                    "Measure the newborn's temperature every 8 hours"
+                ],
+                correct: 0,
+                rationale: "Lotions and ointments can create a barrier that reduces the effectiveness of phototherapy by blocking light penetration to the skin.",
+                image: 'patient_care',
+                hint: "Consider what might interfere with light therapy."
+            },
+            {
+                question: "18. A nurse on the labor and delivery unit is caring for a client who is at 33 weeks of gestation and was admitted with placenta previa. Which of the following interventions should the nurse include in the client's plan of care?",
+                options: [
+                    "Administration of magnesium sulfate",
+                    "Routine vaginal exams",
+                    "Ambulation as tolerated",
+                    "Nonstress test twice weekly"
+                ],
+                correct: 0,
+                rationale: "Magnesium sulfate may be administered for neuroprotection if preterm delivery is anticipated between 24-32 weeks gestation.",
+                image: 'medication_safety',
+                hint: "Consider medications for fetal neuroprotection."
+            },
+            {
+                question: "19. A nurse is admitting a client who is in preterm labor to the labor and delivery unit. The nurse should anticipate which of the following tests to assess for fetal lung maturity?",
+                options: [
+                    "L/S ratio",
+                    "Direct coombs test",
+                    "Biophysical profile",
+                    "Chorionic villus sampling"
+                ],
+                correct: 0,
+                rationale: "The Lecithin/Sphingomyelin (L/S) ratio assesses fetal lung maturity by measuring surfactant components in amniotic fluid.",
+                image: 'laboratory_values',
+                hint: "Consider tests that measure surfactant production."
+            },
+            {
+                question: "20. A nurse is caring for a client who is in labor and prescribed an amnioinfusion. Which of the following findings is an indication for this?",
+                options: [
+                    "Variable decelerations",
+                    "Early decelerations",
+                    "Fetal macrosomia",
+                    "Increased uterine tone"
+                ],
+                correct: 0,
+                rationale: "Amnioinfusion is used to relieve variable decelerations by replacing amniotic fluid and cushioning the umbilical cord.",
+                image: 'patient_care',
+                hint: "Consider interventions for cord compression patterns."
+            },
+            {
+                question: "21. A nurse is caring for a client who is postpartum following repair of a vaginal laceration. The client has a firm fundus, moderate lochia rubra, and reports moderate perineal discomfort and pressure. Which of the following actions should the nurse take?",
+                options: [
+                    "Check the perineal area",
+                    "Perform deep fundal massage",
+                    "Obtain vaginal culture",
+                    "Administer methylergonovide 0.2 mg IM"
+                ],
+                correct: 0,
+                rationale: "Assessing the perineal area is priority to check for hematoma formation, which can cause pressure and discomfort despite a firm fundus.",
+                image: 'patient_assessment',
+                hint: "Consider complications of perineal repair."
+            },
+            {
+                question: "22. A nurse is assessing a full-term newborn 1 hr following a vaginal birth. Which of the following is an expected assessment finding?",
+                options: [
+                    "The newborn's anterior fontanel bulges when he is quiet",
+                    "The newborn's head circumference is greater than the chest circumference",
+                    "The newborn exhibits apneic episodes of 30 seconds",
+                    "The newborn has a heart rate of 70/min while sleeping"
+                ],
+                correct: 1,
+                rationale: "A newborn's head circumference is normally 2-3 cm larger than the chest circumference at birth due to molding during delivery.",
+                image: 'patient_assessment',
+                hint: "Consider normal newborn anatomical proportions."
+            },
+            {
+                question: "23. A nurse is providing discharge teaching to the parent of a newborn about surgical site care following circumcision using a clamp technique. Which of the following statements by the parent indicates an understanding of the teaching?",
+                options: [
+                    "I will check the site hourly for bleeding",
+                    "I will remove the crust with each diaper change",
+                    "I will wash the penis with soap and water daily",
+                    "I will apply petroleum jelly to the area with each diaper change"
+                ],
+                correct: 3,
+                rationale: "Petroleum jelly helps protect the healing circumcision site from irritation and sticking to the diaper.",
+                image: 'wound_care',
+                hint: "Consider measures to protect healing surgical sites."
+            },
+            {
+                question: "24. A nurse in a provider's office is caring for a 20-year-old client who is 12 weeks of gestation and requests an amniocentesis to determine the gender of the fetus. Which of the following responses should the nurse make?",
+                options: [
+                    "You cannot have an amniocentesis until you are at least 35 year of age",
+                    "This procedure determines if your baby has genetic or congenital disorders",
+                    "Your provider will schedule a chorionic villus sampling to determine the sex of your baby",
+                    "We can schedule the procedure for later today if you'd like"
+                ],
+                correct: 1,
+                rationale: "Amniocentesis is primarily a diagnostic procedure for genetic abnormalities, not for gender determination alone due to its invasive nature and associated risks.",
+                image: 'patient_education',
+                hint: "Consider the primary purpose of invasive diagnostic procedures."
+            },
+            {
+                question: "25. A nurse is teaching a prenatal client about listeriosis and dietary modifications during pregnancy. Which of the following statements by the client indicates an understanding of the teaching?",
+                options: [
+                    "I can have a mid-day snack with soft cheese",
+                    "I can purchase a seafood salad from the grocery store",
+                    "I can still have a hot dog at the ballpark",
+                    "I can eat grilled chicken on a bun at lunchtime"
+                ],
+                correct: 3,
+                rationale: "Grilled chicken is a safe, well-cooked protein source that doesn't carry listeria risk, unlike unpasteurized soft cheeses, deli salads, and undercooked hot dogs.",
+                image: 'nutrition',
+                hint: "Consider foods associated with listeria contamination."
+            },
+            {
+                question: "26. A nurse is providing education to a client who is to receive misoprostol for induction of labor. Which of the following instructions should the nurse include in the teaching?",
+                options: [
+                    "You will lie on your side for 40 minutes after I administer the medication",
+                    "I will insert a urinary catheter before I administer the medication",
+                    "I will begin an oxytocin infusion within 2 hours of your last dose of medication",
+                    "You will receive an antacid containing magnesium before the medication"
+                ],
+                correct: 0,
+                rationale: "Lying on the side helps maintain proper medication placement and absorption while promoting uterine perfusion.",
+                image: 'medication_safety',
+                hint: "Consider positioning for vaginal medication administration."
+            },
+            {
+                question: "27. A nurse is reviewing the laboratory findings of a client who is 10 weeks gestation. Which of the following findings should the nurse report to the provider?",
+                options: [
+                    "WBC 10,000",
+                    "Hemoglobin 12 g/dL",
+                    "Creatinine 0.5 mg/dL",
+                    "Platelets 100,000"
+                ],
+                correct: 3,
+                rationale: "A platelet count of 100,000/mm³ indicates thrombocytopenia, which requires further evaluation during pregnancy.",
+                image: 'laboratory_values',
+                hint: "Consider normal platelet ranges in pregnancy."
+            },
+            {
+                question: "28. A nurse on the postpartum unit is reviewing prevention of newborn diaper rash with a client. Which of the following statements indicates an understanding of the teaching?",
+                options: [
+                    "I will allow the diaper area to dry before applying a clean diaper",
+                    "I will wash the diaper area with an antibacterial soap with each diaper change",
+                    "I will clean the diaper area with a scented baby wipe",
+                    "I will apply a thin layer of talc to the diaper area twice a day"
+                ],
+                correct: 0,
+                rationale: "Allowing the skin to dry completely helps prevent moisture-associated diaper dermatitis by maintaining skin integrity.",
+                image: 'patient_education',
+                hint: "Consider moisture prevention in skin care."
+            },
+            {
+                question: "29. A nurse is caring for a client who is in active labor. The nurse administers butorphanol IV bolus for pain. Which of the following findings should the nurse report to the provider following this medication?",
+                options: [
+                    "Respiratory rate 10/min",
+                    "Moderate fetal heart rate variability",
+                    "Urinary output 120mL in 2 hr",
+                    "Blood pressure 136/88"
+                ],
+                correct: 0,
+                rationale: "A respiratory rate of 10/min indicates respiratory depression, a serious adverse effect of opioid analgesics like butorphanol.",
+                image: 'medication_safety',
+                hint: "Consider respiratory effects of opioids."
+            },
+            {
+                question: "30. A nurse is caring for a client who is 1 day postpartum and breastfeeding her newborn. The client reports sore nipples. Which of the following actions should the nurse take?",
+                options: [
+                    "Have the client limit the length of breastfeeding to 5 min per breast",
+                    "Assess the newborn's latch while breastfeeding",
+                    "Instruct the client to wait 4 hours between daytime feedings",
+                    "Offer supplemental formula between the newborn's feedings"
+                ],
+                correct: 1,
+                rationale: "Poor latch is the most common cause of sore nipples. Assessing and correcting the latch can resolve the issue without interrupting breastfeeding.",
+                image: 'patient_assessment',
+                hint: "Consider the most common cause of breastfeeding discomfort."
+            },
+            {
+                question: "31. A nurse is caring for a client who is in the second stage of labor. The nurse observes the fetal head retract against the client's perineum immediately following emergence. Which of the following actions should the nurse take?",
+                options: [
+                    "Assess fetal position using Leopold maneuvers",
+                    "Apply pressure to the client's supra pubic area",
+                    "Reposition the client in the left lateral position",
+                    "Empty the bladder using crede maneuver"
+                ],
+                correct: 1,
+                rationale: "Applying suprapubic pressure helps facilitate delivery of the anterior shoulder during shoulder dystocia.",
+                image: 'emergency_care',
+                hint: "Consider interventions for shoulder dystocia."
+            },
+            {
+                question: "32. A nurse is admitting a client to the birthing unit who reports her contractions started 1 hour ago. The nurse determines the client is 80% and 8cm. The nurse realizes that the client is at risk for which of the following conditions?",
+                options: [
+                    "Ectopic pregnancy",
+                    "Postpartum Hemorrhage",
+                    "Incompetent cervix",
+                    "Hyperemesis gravidarum"
+                ],
+                correct: 1,
+                rationale: "Rapid labor progression can lead to uterine atony and postpartum hemorrhage due to inadequate uterine muscle contraction after delivery.",
+                image: 'patient_safety',
+                hint: "Consider complications of rapid labor."
+            },
+            {
+                question: "33. A nurse is assessing a client who is at 37 weeks gestation. Which of the following statements by the client requires immediate intervention by the nurse?",
+                options: [
+                    "I have been seeing spots this morning",
+                    "My feet are really swollen today",
+                    "I didn't have lunch today, but I had breakfast this morning",
+                    "It burns when I urinate"
+                ],
+                correct: 0,
+                rationale: "Visual disturbances like seeing spots can indicate worsening preeclampsia and require immediate evaluation.",
+                image: 'emergency_care',
+                hint: "Consider symptoms of severe preeclampsia."
+            },
+            {
+                question: "34. A nurse is caring for a client who is in the second stage of labor. Which of the following manifestations should the nurse expect?",
+                options: [
+                    "The client expels the placenta",
+                    "The client delivers the newborn",
+                    "The client begins having regular contractions",
+                    "The client experiences gradual dilation of the cervix"
+                ],
+                correct: 1,
+                rationale: "The second stage of labor begins with complete cervical dilation and ends with delivery of the newborn.",
+                image: 'patient_assessment',
+                hint: "Consider the definition of second stage labor."
+            },
+            {
+                question: "35. A nurse is assessing the fetal heart rate for a client who is at 38 weeks of gestation. When using an ultrasound device, the nurse hears blood rushing through the umbilical vessels in synchronization with the fetal heart beat. Which of the following terms should the nurse use to document this finding?",
+                options: [
+                    "Goodell's sign",
+                    "Funic soufflé",
+                    "Hegar's sign",
+                    "Quickening"
+                ],
+                correct: 1,
+                rationale: "Funic soufflé refers to the sound of blood rushing through the umbilical vessels, synchronized with the fetal heartbeat.",
+                image: 'patient_assessment',
+                hint: "Consider terms for umbilical cord sounds."
+            },
+            {
+                question: "36. A nurse at an antepartum clinic is caring for four clients. Which of the following clients should the nurse assess first?",
+                options: [
+                    "A client who is at 36 weeks of gestation and reports back pain following intercourse",
+                    "A client who is at 10 weeks of gestation and reports frequent urination",
+                    "A client who is at 24 weeks of gestation and reports periodic tingling of the fingers",
+                    "A client who is at 8 weeks of gestation and reports severe vomiting"
+                ],
+                correct: 3,
+                rationale: "Severe vomiting in early pregnancy can indicate hyperemesis gravidarum, which can lead to dehydration and electrolyte imbalances requiring immediate intervention.",
+                image: 'priority_setting',
+                hint: "Consider which symptom indicates potential dehydration."
+            },
+            {
+                question: "37. A nurse is caring for four clients. For which of the following clients should the nurse auscultate the fetal heart rate during the prenatal visit?",
+                options: [
+                    "A client who has a crown-rump length of 7 weeks of gestation",
+                    "A client who has an ultrasound that confirms a molar pregnancy",
+                    "A client who has felt quickening for the first time",
+                    "A client who has a positive urine pregnancy test 1 week after missed menses"
+                ],
+                correct: 0,
+                rationale: "Fetal heart tones can typically be detected by Doppler ultrasound around 7-8 weeks gestation with crown-rump length measurement.",
+                image: 'patient_assessment',
+                hint: "Consider when fetal heart tones become detectable."
+            },
+            {
+                question: "38. A nurse is assessing a newborn who is 2 hours old. Which of the following findings should the nurse report to the provider?",
+                options: [
+                    "Transient nystagmus",
+                    "Overlapping sutures with molding",
+                    "Single transverse palmar crease bilaterally",
+                    "Lanugo on the pinna of the ears"
+                ],
+                correct: 2,
+                rationale: "A single transverse palmar crease (simian crease) can be associated with Down syndrome and should be reported for further evaluation.",
+                image: 'patient_assessment',
+                hint: "Consider physical findings associated with genetic conditions."
+            },
+            {
+                question: "39. A nurse is reviewing the laboratory report of a client who is 24 hrs postpartum vaginal delivery. The client has a hemoglobin level of 9.0 g/dL and hematocrit of 25%. Which of the following actions should the nurse take?",
+                options: [
+                    "Prepare the client for a blood transfusion",
+                    "Initiate IV access for isotonic solution with an 18-gauge catheter",
+                    "Administer an iron supplement to the client",
+                    "Instruct the client that the provider will check for placental fragments"
+                ],
+                correct: 0,
+                rationale: "Hemoglobin of 9.0 g/dL and hematocrit of 25% indicate significant anemia that may require blood transfusion, especially if symptomatic.",
+                image: 'laboratory_values',
+                hint: "Consider transfusion thresholds for postpartum anemia."
+            },
+            {
+                question: "40. A nurse is caring for a client who is at 24 weeks of gestation and has a glucose screening test result of 150 mg/dL. Which of the following actions should the nurse take?",
+                options: [
+                    "Perform a urine screen for ketones",
+                    "Repeat the glucose screening test in 15 min to verify results",
+                    "Schedule the client for a 3 hr oral glucose tolerance test",
+                    "Determine if the client has fasted"
+                ],
+                correct: 2,
+                rationale: "A glucose screening result of 150 mg/dL is elevated and requires follow-up with a 3-hour oral glucose tolerance test to diagnose gestational diabetes.",
+                image: 'laboratory_values',
+                hint: "Consider diagnostic follow-up for abnormal screening tests."
+            },
+            {
+                question: "41. A nurse is assessing the results of a non-stress test for an antepartal client at 35 weeks of gestation. Which of the following findings should indicate to the nurse the need for further diagnostic testing?",
+                options: [
+                    "An increase in fetal heart rate to 150/min above the baseline of 140/min lasting 10 seconds in response to fetal movement within a 40-min testing period",
+                    "Irregular contractions of 10 to 20 seconds in duration that are not felt by the client",
+                    "No late decelerations in the fetal heart rate noted with three uterine contractions of 60 seconds in duration within a 10-min testing period",
+                    "Three fetal movements perceived by the client in a 20-min testing period"
+                ],
+                correct: 2,
+                rationale: "The absence of accelerations with fetal movement in a non-stress test is non-reactive and requires further evaluation with a contraction stress test or biophysical profile.",
+                image: 'patient_assessment',
+                hint: "Consider what constitutes a reactive vs. non-reactive NST."
+            },
+            {
+                question: "42. A nurse is caring for a client who is receiving oxytocin to induce labor. The nurse should discontinue the oxytocin if which of the following occurs?",
+                options: [
+                    "Six contractions in 10 min",
+                    "Nonrepetitive early decelerations",
+                    "Moderate variability of the fetal heart rate",
+                    "Contractions last 60 seconds"
+                ],
+                correct: 0,
+                rationale: "Tachysystole (more than 5 contractions in 10 minutes) requires discontinuation of oxytocin to prevent fetal compromise.",
+                image: 'medication_safety',
+                hint: "Consider signs of uterine hyperstimulation."
+            },
+            {
+                question: "43. A nurse is caring for a client who has had a pudendal nerve block. The nurse should monitor for which of the following findings as an adverse effect?",
+                options: [
+                    "Decreased ability to bear down",
+                    "Uterine hyper-stimulation",
+                    "Fetal bradycardia",
+                    "Maternal hypertension"
+                ],
+                correct: 0,
+                rationale: "Pudendal nerve block can decrease perineal sensation and the ability to effectively bear down during the second stage of labor.",
+                image: 'patient_assessment',
+                hint: "Consider effects of regional anesthesia on pushing ability."
+            },
+            {
+                question: "44. A nurse is assessing a newborn following a vaginal delivery. Which of the following findings should the nurse report to the provider?",
+                options: [
+                    "Bulging fontanels",
+                    "Subconjunctival hemorrhage",
+                    "Milia",
+                    "Caput succedaneum"
+                ],
+                correct: 1,
+                rationale: "Subconjunctival hemorrhage is not a normal finding and may indicate trauma during delivery requiring evaluation.",
+                image: 'patient_assessment',
+                hint: "Consider which findings indicate potential birth trauma."
+            },
+            {
+                question: "45. A nurse is caring for a client who is 1 day postpartum following the birth of her first baby. The client's partner states, \"I've been having nightmares that we are homeless and the baby is starving.\" Which of the following is an appropriate response by the nurse?",
+                options: [
+                    "This is just the beginning of the worrying you will do as a parent",
+                    "I know you're worried, but everything is going to be okay",
+                    "What do you think it will be like to be responsible for a baby?",
+                    "Why would you worry about being homeless when you have a good job?"
+                ],
+                correct: 1,
+                rationale: "This response provides reassurance while acknowledging the partner's anxiety, which is common during the transition to parenthood.",
+                image: 'therapeutic_communication',
+                hint: "Consider therapeutic communication for anxiety."
+            },
+            {
+                question: "46. A nurse is providing discharge instructions to a client who delivered a newborn via cesarean birth 4 days ago. The nurse should instruct the client to contact the provider for which of the following findings?",
+                options: [
+                    "The newborn's cord stump is still attached after 1 week",
+                    "The newborn has fewer than four wet diapers in 24 hr",
+                    "The newborn has loose stools",
+                    "The newborn sleeps 16 hr a day"
+                ],
+                correct: 1,
+                rationale: "Fewer than 4-6 wet diapers in 24 hours may indicate dehydration and requires medical evaluation.",
+                image: 'patient_education',
+                hint: "Consider signs of adequate newborn hydration."
+            },
+            {
+                question: "47. A nurse is caring for a newborn. Which of the following assessment findings should indicate to the nurse that suctioning of the nasopharynx is needed?",
+                options: [
+                    "The newborn is beginning to cough",
+                    "The newborn's respiratory rate is irregular",
+                    "The newborn's pulse oximetry is 91%",
+                    "The newborn's respiratory rate is 32/min"
+                ],
+                correct: 0,
+                rationale: "Coughing indicates the newborn is attempting to clear secretions independently and may need assistance with suctioning.",
+                image: 'patient_assessment',
+                hint: "Consider signs of airway secretions needing clearance."
+            },
+            {
+                question: "48. A nurse is performing a physical examination of a term newborn upon admission to the nursery. In which order should the nurse perform the following assessments?",
+                options: [
+                    "Observe respirations → Auscultate heart rate → Auscultate abdomen → Test reflexes",
+                    "Auscultate heart rate → Observe respirations → Test reflexes → Auscultate abdomen",
+                    "Test reflexes → Auscultate abdomen → Observe respirations → Auscultate heart rate",
+                    "Auscultate abdomen → Test reflexes → Auscultate heart rate → Observe respirations"
+                ],
+                correct: 0,
+                rationale: "The assessment should proceed from least to most invasive: observation first, then auscultation, then hands-on assessment to maintain infant comfort.",
+                image: 'patient_assessment',
+                hint: "Consider assessment sequence from least to most disturbing."
+            },
+            {
+                question: "49. A nurse in a prenatal clinic is discussing quickening with a client who is in the first trimester of her first pregnancy. Which of the following statements by the client indicates understanding of the teaching?",
+                options: [
+                    "I will plan to have a blood test when quickening occurs",
+                    "I will feel movement at about 16 to 20 weeks",
+                    "I will begin scheduling appointments every 2 weeks",
+                    "I will take two ibuprofen capsules for the discomfort"
+                ],
+                correct: 1,
+                rationale: "Quickening (first fetal movements) is typically felt between 16-20 weeks in primigravidas and 14-18 weeks in multigravidas.",
+                image: 'patient_education',
+                hint: "Consider timing of first fetal movements."
+            },
+            {
+                question: "50. A nurse is assessing a full-term newborn upon admission to the nursery. Which of the following clinical findings should the nurse report to the provider?",
+                options: [
+                    "Rust-stained urine",
+                    "Transient circumoral cyanosis",
+                    "Subconjunctival hemorrhage",
+                    "Single palmar creases"
+                ],
+                correct: 2,
+                rationale: "Subconjunctival hemorrhage is not a normal finding and may indicate birth trauma requiring evaluation.",
+                image: 'patient_assessment',
+                hint: "Consider which findings indicate potential trauma."
+            },
+            {
+                question: "51. A nurse is assessing a client who is in her second trimester for common physiological changes during pregnancy. The nurse notes a blotchy discoloration on the client's forehead, nose, and cheeks. Which of the following changes should the nurse document?",
+                options: [
+                    "Striae gravidarum",
+                    "Epulis",
+                    "Chloasma",
+                    "Linea nigra"
+                ],
+                correct: 2,
+                rationale: "Chloasma (melasma or 'mask of pregnancy') appears as blotchy hyperpigmentation on the face due to hormonal changes.",
+                image: 'patient_assessment',
+                hint: "Consider skin changes related to pregnancy hormones."
+            },
+            {
+                question: "52. A nurse is conducting a class for a group of clients about birth control. Which of the following information should the nurse include in the teaching?",
+                options: [
+                    "You should have an annual examination to assess your diaphragm",
+                    "You should use spermicide 3 hours prior to sexual intercourse",
+                    "Your fertility will return 6 months after your provider removes your IUD",
+                    "You will not need to use birth control for 1 month after receiving emergency contraception"
+                ],
+                correct: 0,
+                rationale: "Diaphragms should be refitted annually or after weight changes of 10-15 pounds to ensure proper fit and effectiveness.",
+                image: 'patient_education',
+                hint: "Consider maintenance requirements for barrier methods."
+            },
+            {
+                question: "53. A nurse is caring for a client who is in the first stage of labor and the fetal head is in a posterior position. The client reports pressure and pain in her lower back. Which of the following nonpharmacological comfort measures should the nurse suggest first?",
+                options: [
+                    "Guided imagery",
+                    "Effleurage",
+                    "Patterned breathing",
+                    "Counterpressure"
+                ],
+                correct: 3,
+                rationale: "Counterpressure applied to the sacral area helps relieve back pain associated with occiput posterior position by counteracting fetal head pressure.",
+                image: 'pain_management',
+                hint: "Consider interventions specifically for back labor."
+            },
+            {
+                question: "54. A nurse is monitoring a client who has preeclampsia and is receiving magnesium sulfate by continuous IV infusion. Which of the following findings should the nurse report to the provider?",
+                options: [
+                    "Urinary output 20 mL/hr",
+                    "2+ deep tendon reflexes",
+                    "Blood pressure 148/94 mm Hg",
+                    "Respiratory rate 14/min"
+                ],
+                correct: 0,
+                rationale: "Urinary output less than 30 mL/hr indicates inadequate renal perfusion and magnesium clearance, increasing the risk of magnesium toxicity.",
+                image: 'medication_safety',
+                hint: "Consider monitoring parameters for magnesium sulfate."
+            },
+            {
+                question: "55. A nurse is caring for a client who has preeclampsia and is receiving magnesium sulfate by continuous IV infusion. The nurse should monitor for which of the following adverse effects?",
+                options: [
+                    "Hypertonia",
+                    "Elevated blood pressure",
+                    "Polyuria",
+                    "Absence of deep tendon reflexes"
+                ],
+                correct: 3,
+                rationale: "Absence of deep tendon reflexes is a sign of magnesium toxicity and requires immediate intervention.",
+                image: 'medication_safety',
+                hint: "Consider signs of magnesium toxicity."
+            },
+            {
+                question: "56. A nurse is providing teaching to the parents of a newborn about the Plastibell circumcision technique. Which of the following information should the nurse include?",
+                options: [
+                    "Yellow exudate will form at the surgical site in 24 hours",
+                    "The Plastibell will be removed 4 hours after the procedure",
+                    "Make sure the newborn's diaper is snug",
+                    "Notify the provider if the end of your baby's penis appears dark red"
+                ],
+                correct: 0,
+                rationale: "Yellow exudate is a normal part of the healing process and should not be removed, as it protects the surgical site.",
+                image: 'patient_education',
+                hint: "Consider normal healing process after circumcision."
+            },
+            {
+                question: "57. A nurse is reviewing a client's rubella titer of 1:8 at her second prenatal visit. Which of the following statements by the nurse is appropriate?",
+                options: [
+                    "You will need a rubella immunization at your next prenatal visit",
+                    "Your titer indicates that you are susceptible to rubella",
+                    "Because rubella is a live vaccine, you will not be able to breastfeed your newborn",
+                    "During your third trimester, you will need to repeat a blood test for the titer"
+                ],
+                correct: 3,
+                rationale: "A rubella titer of 1:8 indicates immunity. However, titers may be repeated in the third trimester to confirm continued immunity.",
+                image: 'laboratory_values',
+                hint: "Consider interpretation of immunity titers."
+            },
+            {
+                question: "58. A nurse is caring for a client who is in active labor and is receiving oxytocin via IV infusion. The nurse has applied an internal fetal heart monitor and recognizes an early deceleration of the fetal heart rate tracing. Which of the following actions should the nurse take?",
+                options: [
+                    "Discontinue the oxytocin",
+                    "Assist the client to lay on her right side",
+                    "Administer oxygen at 8 L/min per mask",
+                    "Continue to monitor the client"
+                ],
+                correct: 3,
+                rationale: "Early decelerations are benign and caused by head compression during contractions. They require no intervention other than continued monitoring.",
+                image: 'patient_assessment',
+                hint: "Consider which fetal heart patterns are benign."
+            },
+            {
+                question: "59. A nurse in a postpartum unit is caring for several clients. Which of the following tasks should the nurse delegate to assistive personnel?",
+                options: [
+                    "Help the client with perineal care",
+                    "Demonstrate to a client how to change a diaper",
+                    "Check the saturation of the perineal pad",
+                    "Provide the client with a dose of magnesium hydroxide"
+                ],
+                correct: 2,
+                rationale: "Checking pad saturation is within the scope of assistive personnel, while teaching and medication administration require nursing judgment.",
+                image: 'delegation',
+                hint: "Consider appropriate delegation based on scope of practice."
+            },
+            {
+                question: "60. A nurse is providing discharge teaching to a client following tubal ligation. Which of the following statements by the client indicates an understanding of the teaching?",
+                options: [
+                    "Premenstrual tension will no longer be present",
+                    "Ovulation will remain the same",
+                    "Hormone replacements will be needed following this procedure",
+                    "My monthly menstrual period will be shorter"
+                ],
+                correct: 1,
+                rationale: "Tubal ligation blocks the fallopian tubes but does not affect ovarian function or hormone production, so ovulation continues normally.",
+                image: 'patient_education',
+                hint: "Consider what tubal ligation does and does not affect."
+            },
+            {
+                question: "61. A nurse is caring for a client who is in the latent phase of the first stage of labor and is in pain. Which of the following nursing interventions are appropriate to reduce pain? (Select all that apply.)",
+                options: [
+                    "Administer 70% nitrous oxide mixed with oxygen",
+                    "Perform Leopold maneuvers",
+                    "Have the client sit in a tub of warm water",
+                    "Ambulate the client in the hallway",
+                    "Apply counterpressure to the sacral area"
+                ],
+                correct: 0,
+                rationale: "Non-pharmacological pain relief measures like hydrotherapy, ambulation, and counterpressure are appropriate during early labor.",
+                image: 'pain_management',
+                hint: "Consider non-pharmacological pain management options."
+            },
+            {
+                question: "62. A nurse in a provider's office is assessing a client at her first antepartum visit. The client states that the first day of her last menstrual period was March 8. Use Nagele's rule to calculate the estimated date of delivery.",
+                options: [
+                    "December 1",
+                    "December 15",
+                    "January 1",
+                    "January 15"
+                ],
+                correct: 1,
+                rationale: "Nagele's rule: Subtract 3 months (December 8) and add 7 days (December 15) from the first day of the last menstrual period.",
+                image: 'patient_assessment',
+                hint: "Remember Nagele's rule formula."
+            },
+            {
+                question: "63. A nurse in a prenatal clinic is reviewing the laboratory results for a client who is at 12 weeks of gestation. Which of the following actions should the nurse take?",
+                options: [
+                    "Administer rubella vaccine",
+                    "Obtain a blood culture",
+                    "Administer ceftriaxone IM",
+                    "Obtain a maternal serum alpha-fetoprotein specimen"
+                ],
+                correct: 3,
+                rationale: "Maternal serum alpha-fetoprotein screening is typically performed between 15-20 weeks gestation to screen for neural tube defects.",
+                image: 'laboratory_values',
+                hint: "Consider timing of prenatal screening tests."
+            },
+            {
+                question: "64. A nurse is providing discharge instructions to a client who is breastfeeding her newborn. Which of the following instructions should the nurse include?",
+                options: [
+                    "Expect two to four wet diapers every 24 hr",
+                    "Offer the newborn 30 mL (1 oz) of water between feedings",
+                    "Feed the newborn 5 to 10 min per breast",
+                    "Allow the baby to feed at least every 3 hr"
+                ],
+                correct: 3,
+                rationale: "Breastfed newborns should feed 8-12 times in 24 hours (every 2-3 hours) to establish milk supply and ensure adequate nutrition.",
+                image: 'patient_education',
+                hint: "Consider feeding frequency for breastfeeding newborns."
+            },
+            {
+                question: "65. A nurse is assessing a client who is 1 hr postpartum. The nurse notes a large amount of vaginal bleeding with several large blood clots on the client's peripad. The client's blood pressure is 70/42 mm Hg and her heart rate is 150/min. Which of the following actions should the nurse take first?",
+                options: [
+                    "Massage the fundus",
+                    "Apply oxygen at 10 to 12 L/min",
+                    "Elevate the legs",
+                    "Administer an IV bolus of oxytocin"
+                ],
+                correct: 2,
+                rationale: "Elevating the legs improves venous return and is an immediate intervention for hypovolemic shock while other measures are initiated.",
+                image: 'emergency_care',
+                hint: "Consider initial shock management positioning."
+            },
+            {
+                question: "66. A nurse is assisting the provider to administer a dinoprostone (Cervidil) insert to induce labor for a client. Which of the following actions should the nurse take?",
+                options: [
+                    "Instruct the client to avoid urinary elimination until after administration",
+                    "Allow the medication to reach room temperature prior to administration",
+                    "Place the client in a semi-Fowler's position for 1 hr after administration",
+                    "Verify that the informed consent is obtained prior to administration"
+                ],
+                correct: 3,
+                rationale: "Informed consent must be obtained before any labor induction procedure, including medication administration.",
+                image: 'ethical_considerations',
+                hint: "Consider legal requirements for procedures."
+            },
+            {
+                question: "67. A nurse is planning care for a newborn who is large for gestational age due to maternal gestational diabetes mellitus. The nurse should recognize that the newborn is at risk for which of the following conditions? (Select all that apply.)",
+                options: [
+                    "Hyperbilirubinemia",
+                    "Hypercalcemia",
+                    "Polycythemia",
+                    "Hypomagnesemia",
+                    "Hypoglycemia"
+                ],
+                correct: 0,
+                rationale: "Infants of diabetic mothers are at risk for hypoglycemia due to hyperinsulinemia and hyperbilirubinemia due to polycythemia and immature liver function.",
+                image: 'patient_safety',
+                hint: "Consider common complications for infants of diabetic mothers."
+            },
+            {
+                question: "68. A nurse is providing prenatal teaching to a group of clients who are in their third trimester of pregnancy. Which of the following statements by a client indicates an understanding of the teaching?",
+                options: [
+                    "I should lie on my back as much as possible during the labor process",
+                    "Panting will help me control the urge to push when my cervix is not completely dilated",
+                    "I will be allowed to start to push once my cervix is dilated to 5 centimeters",
+                    "Once my water has broken, I will not be able to have epidural anesthesia"
+                ],
+                correct: 1,
+                rationale: "Panting breathing techniques can help control the urge to push before complete cervical dilation to prevent cervical edema and tearing.",
+                image: 'patient_education',
+                hint: "Consider breathing techniques for labor."
+            },
+            {
+                question: "69. A nurse manager on the labor and delivery unit is teaching a group of newly licensed nurses about maternal cytomegalovirus. Which of the following information should the nurse manager include in the teaching?",
+                options: [
+                    "Mothers will receive prophylactic treatment with acyclovir prior to delivery",
+                    "Lesions are visible on the mother's genitalia",
+                    "Transmission can occur via the saliva and urine of the newborn",
+                    "This infection requires airborne precautions are initiated for the newborn"
+                ],
+                correct: 2,
+                rationale: "CMV can be transmitted through contact with infected body fluids including saliva and urine from infected newborns.",
+                image: 'infection_control',
+                hint: "Consider transmission routes for CMV."
+            },
+            {
+                question: "70. A nurse is assessing a postpartum client who is receiving oxytocin 1 hr. after a normal spontaneous delivery. During the assessment, the nurse notes that the client perineal pad is fully saturated. which of the following actions should the nurse anticipate taking?",
+                options: [
+                    "Insert vaginal packing",
+                    "Discontinue the oxytocin infusion",
+                    "Administer terbutaline sulfate",
+                    "Massage the uterus until firm"
+                ],
+                correct: 3,
+                rationale: "Uterine massage is the first-line intervention for postpartum hemorrhage to stimulate uterine contraction and control bleeding.",
+                image: 'emergency_care',
+                hint: "Consider first-line treatment for postpartum bleeding."
+            },
+            {
+                question: "71. A nurse is providing teaching to a client who has mild preeclampsia and will be caring for herself which statement by the clients indicates an understanding of the teaching?",
+                options: [
+                    "I will check my urine for protein only",
+                    "I will consume 50 grams of proteins daily",
+                    "I will alternate the arm I use to check my blood pressure",
+                    "I will count my baby kicks every other day"
+                ],
+                correct: 0,
+                rationale: "Home monitoring for preeclampsia includes daily urine protein checks to detect worsening condition.",
+                image: 'patient_education',
+                hint: "Consider home monitoring for preeclampsia."
+            },
+            {
+                question: "72. A nurse is assessing a client and observes the umbilical cord protruding from the vaginal after calling.",
+                options: [
+                    "Administer oxygen via nonrebreather facemask",
+                    "Wrap the cord with a sterile towel saturated in normal saline",
+                    "Place a rolled towel under the clients right hip.",
+                    "Apply upward pressure against the presenting part."
+                ],
+                correct: 3,
+                rationale: "Applying upward pressure relieves cord compression in prolapsed cord situations while preparing for emergency delivery.",
+                image: 'emergency_care',
+                hint: "Consider interventions for cord prolapse."
+            },
+            {
+                question: "73. A nurse is reviewing the laboratory results of a client who is at 20 weeks of gestation and has type 1 diabetes mellitus. Which of the following report to the provider?",
+                options: [
+                    "Hct 34%",
+                    "Platelets 170,000/mm^3",
+                    "BUN 25 mg/dL",
+                    "HbA1c 6%"
+                ],
+                correct: 2,
+                rationale: "Elevated BUN (normal 7-20 mg/dL) may indicate renal impairment, which requires evaluation in diabetic pregnancies.",
+                image: 'laboratory_values',
+                hint: "Consider renal function markers in diabetes."
+            },
+            {
+                question: "74. A nurse on the labor and delivery unit is assessing four clients. Which of the following clients is a candidate for an induction of labour",
+                options: [
+                    "A client who has gestational diabetes mellitus",
+                    "A client who has placenta previa",
+                    "A client who has active genital herpes",
+                    "A client who has a previous uterine incision."
+                ],
+                correct: 0,
+                rationale: "Gestational diabetes mellitus at term is an indication for labor induction to prevent macrosomia and other complications.",
+                image: 'patient_care',
+                hint: "Consider indications for labor induction."
+            },
+            {
+                question: "75. A nurse is providing discharge instructions to a client who is breastfeeding her newborn. Which of the following",
+                options: [
+                    "Allow the baby to feed at least every 3 hr.",
+                    "Offer the new born 30ml (1 oz.) of water between feeding",
+                    "Feed the newborn 5 to 10 min per breast",
+                    "Expect two to four wet diapers every 24 hrs"
+                ],
+                correct: 0,
+                rationale: "Frequent feeding (every 2-3 hours) helps establish milk supply and ensures adequate newborn nutrition.",
+                image: 'patient_education',
+                hint: "Consider breastfeeding frequency recommendations."
+            },
+            {
+                question: "76. A nurse is caring for a client who is at 8 weeks of gestation and has an ectopic pregnancy.",
+                options: [
+                    "Bright, red vaginal discharge",
+                    "Scaphoid abdomen",
+                    "Elevated blood pressure",
+                    "Sharp pelvic pain"
+                ],
+                correct: 3,
+                rationale: "Sharp pelvic pain is a classic symptom of ectopic pregnancy, often indicating tubal rupture.",
+                image: 'emergency_care',
+                hint: "Consider classic symptoms of ectopic pregnancy."
+            },
+            {
+                question: "77. A nurse is providing education about RH(D) immune globulin to a client who is pregnant. What indicate for administering RH(D)immune globulin?",
+                options: [
+                    "The client delivers an Rh-negative newborn",
+                    "The client has a history of placenta previa",
+                    "The client had a spontaneous abortion",
+                    "The client is at 16 weeks of gestation."
+                ],
+                correct: 2,
+                rationale: "Rh immune globulin is indicated after spontaneous abortion to prevent Rh sensitization in future pregnancies.",
+                image: 'medication_safety',
+                hint: "Consider indications for Rhogam administration."
+            },
+            {
+                question: "78. A nurse is providing teaching to a client who is 2 days postpartum.",
+                options: [
+                    "You should store your diaphragm in sterile water after each use",
+                    "You should use an oil based vaginal lubricant when inserting your diaphragm",
+                    "You should have your provider refit you for a new diaphragm",
+                    "You should keep the diaphragm in place for at least 4 hours after intercourse."
+                ],
+                correct: 2,
+                rationale: "Diaphragms need refitting after pregnancy and delivery due to changes in vaginal anatomy.",
+                image: 'patient_education',
+                hint: "Consider postpartum changes affecting contraceptive devices."
+            },
+            {
+                question: "79. A nurse is caring for a client who is 12hr. postpartum and has a fourth degree laceration of the perineum",
+                options: [
+                    "Apply a moist , warm compress to the perineum",
+                    "Apply provide iodine to the client perineum after the voids",
+                    "Provide the client with a cool sitz bath",
+                    "Administer methylergenevine 0.2 mg"
+                ],
+                correct: 0,
+                rationale: "Warm compresses promote comfort and healing for perineal lacerations.",
+                image: 'wound_care',
+                hint: "Consider comfort measures for perineal healing."
+            },
+            {
+                question: "80. A nurse is assessing four newborns. Which of the following clinical findings.",
+                options: [
+                    "A 2 day old infant who is excreting a thin, white discharge from both nipples",
+                    "A 2 day old infant who has a respiratory rate of 70/mims",
+                    "A 16 hr old infant who has a blood glucose level of 50 mg/dl",
+                    "A 16 hr old infant who has yet to pass a meconium stool"
+                ],
+                correct: 1,
+                rationale: "Respiratory rate of 70/min is tachypneic for a newborn (normal 30-60/min) and requires evaluation.",
+                image: 'patient_assessment',
+                hint: "Consider normal newborn respiratory rate ranges."
+            },
+            {
+                question: "81. A nurse is performing an initial assessment of a new born who was delivered with a nuchal cord.",
+                options: [
+                    "Telanglectatic nevi",
+                    "Facial petechiae",
+                    "Erythema toxicum",
+                    "Periauricular papilloma"
+                ],
+                correct: 1,
+                rationale: "Facial petechiae can result from pressure from the umbilical cord around the neck during delivery.",
+                image: 'patient_assessment',
+                hint: "Consider effects of nuchal cord."
+            },
+            {
+                question: "82. A nurse is assisting the provider to administer a dinoprostone insert to induce labor",
+                options: [
+                    "Verify that the informed consent is obtained prior to administration",
+                    "Place the client in a semi fowler position for 1 hr. after administration.",
+                    "Instruct the client to avoid urinary elimination until after administration",
+                    "Allow the mediation to reach room temp. prior to administration."
+                ],
+                correct: 0,
+                rationale: "Informed consent is required before any labor induction procedure.",
+                image: 'ethical_considerations',
+                hint: "Consider legal requirements for procedures."
+            },
+            {
+                question: "83. A nurse is caring for a client who is at 20 weeks of gestation and has trichomoniasis. Which of the following findings should the nurse expected?",
+                options: [
+                    "malodorous",
+                    "Urinary frequency",
+                    "vulva lesions",
+                    "Thick, white vaginal discharge."
+                ],
+                correct: 0,
+                rationale: "Trichomoniasis typically presents with foul-smelling, greenish-yellow discharge.",
+                image: 'patient_assessment',
+                hint: "Consider characteristic symptoms of trichomoniasis."
+            },
+            {
+                question: "84. A nurse is teaching a group of women who are pregnant about actions to take if they are suspect they are experiencing preterm labor the nurse provides.",
+                options: [
+                    "call your doctor if you have contractions every 20 minutes for at least 1 hour",
+                    "expect to have a small amount of fluid leaking from the vagina",
+                    "empty your bladder",
+                    "lie on your back for 2 hrs."
+                ],
+                correct: 2,
+                rationale: "Emptying the bladder can help differentiate true labor from Braxton Hicks contractions.",
+                image: 'patient_education',
+                hint: "Consider initial actions for suspected preterm labor."
+            },
+            {
+                question: "85. A nurse is admitting a client to the birthing unit who reports her contraction started 1hrs. ago. The nurse determine realizes that the client is at risk for which of the following conditions.",
+                options: [
+                    "Hyperremesis gravidarum",
+                    "Ectopic pregnancy",
+                    "Incompetent cervix",
+                    "postpartum hemorrhage."
+                ],
+                correct: 3,
+                rationale: "Rapid labor progression increases risk for uterine atony and postpartum hemorrhage.",
+                image: 'patient_safety',
+                hint: "Consider complications of rapid labor."
+            },
+            {
+                question: "86. A nurse is providing teaching to a postpartum client who has a prescription for a rubella immunization. Which of the",
+                options: [
+                    "I should avoid breastfeeding for 2 weeks following the immunization",
+                    "I will receive a series of three immunization and each one will be a month apart",
+                    "I should avoid becoming pregnant for at least 1 month following the immunization",
+                    "I will report joint pain that develop after the immunization to my provider immediately."
+                ],
+                correct: 2,
+                rationale: "Rubella vaccine is contraindicated in pregnancy, so pregnancy should be avoided for 1 month post-vaccination.",
+                image: 'patient_education',
+                hint: "Consider pregnancy precautions with live vaccines."
+            },
+            {
+                question: "87. A nurse is caring for a newborn who is 2 days old. Which of the following finding should the nurse report.",
+                options: [
+                    "Edema of the scalp that crosses lines",
+                    "Bilirubin 17 mg/dl",
+                    "heart rate 180 min when crying",
+                    "presence of a babinski reflex"
+                ],
+                correct: 0,
+                rationale: "Scalp edema that crosses suture lines may indicate caput succedaneum, but extensive edema requires evaluation.",
+                image: 'patient_assessment',
+                hint: "Consider abnormal newborn head findings."
+            },
+            {
+                question: "88. Teaching a client and her partner about the techniques of counter pressure during labor. Which of the following statement by the nurse is appropriate",
+                options: [
+                    "your partner will apply upward pressure on your lower abdomen between contractions",
+                    "Your partner will apply steady pressure with a tennis ball to your lower back",
+                    "your partner will apply continuous, film pressure between your thumb and index finger",
+                    "your partner will apply pressure to the top of your uterus during contraction."
+                ],
+                correct: 1,
+                rationale: "Counterpressure with firm objects like tennis balls provides effective relief for back labor pain.",
+                image: 'pain_management',
+                hint: "Consider techniques for back labor relief."
+            },
+            {
+                question: "89. A nurse is preparing the plan of care for a term newborn who was asymptomatic at birth and whose mother had hepatitis B. which intervention should the nurse include in the plan of care",
+                options: [
+                    "Administer hepatitis B immune globulin IM to the newborn",
+                    "initiate airborne precaution",
+                    "wait at least 24hrs. before bathing the new born",
+                    "instructs the mother to delay breast feeding for one week"
+                ],
+                correct: 0,
+                rationale: "Newborns of HBsAg-positive mothers should receive Hepatitis B Immune Globulin within 12 hours of birth.",
+                image: 'medication_safety',
+                hint: "Consider immunoprophylaxis for perinatal transmission."
+            },
+            {
+                question: "90. A nurse is caring for a client who has preeclampsia and receiving magnesium sulfate. Which of the following clinic?",
+                options: [
+                    "increased fetal movement",
+                    "increased urinary output",
+                    "increased respiratory rate",
+                    "increased muscle weakness."
+                ],
+                correct: 3,
+                rationale: "Muscle weakness is an early sign of magnesium toxicity requiring dose adjustment.",
+                image: 'medication_safety',
+                hint: "Consider signs of magnesium toxicity."
+            },
+            {
+                question: "91. A nurse is creating a plan of care for a client who is in active labor and has mitral valve ster",
+                options: [
+                    "administer 500ml of 0.9% sodium chloride solution every hour",
+                    "maintain the client in the lithotomy position during labor.",
+                    "prepare the client for vacuum of forceps assisted birth",
+                    "Give the client 0.25g of terbutaline subcutaneously every 6 hrs."
+                ],
+                correct: 2,
+                rationale: "Assisted delivery reduces pushing time and cardiac strain in clients with cardiac conditions.",
+                image: 'patient_care',
+                hint: "Consider cardiac precautions during labor."
+            },
+            {
+                question: "92. A nurse is caring for a client who is at 28wks of gestation and received no immunization. What to administer?",
+                options: [
+                    "tetanus",
+                    "rubella",
+                    "variella",
+                    "human papillomavirus"
+                ],
+                correct: 0,
+                rationale: "Tetanus vaccine is safe in pregnancy and provides protection for both mother and newborn.",
+                image: 'patient_education',
+                hint: "Consider vaccines safe in pregnancy."
+            },
+            {
+                question: "93. A nurse in a provider office is caring for a 20yrs old client who is at 12wks of gestation......the following responses should the nurse make",
+                options: [
+                    "we can schedule the procedure for later today if you d like",
+                    "you cannot have an amniocentesis until you are at least 35yrs of age",
+                    "this procedure determines if your body has genetics or congenital disorders",
+                    "your provider will schedule a chorionic villus sampling to determine the sex"
+                ],
+                correct: 2,
+                rationale: "Amniocentesis is primarily for genetic diagnosis, not gender determination alone.",
+                image: 'patient_education',
+                hint: "Consider appropriate use of diagnostic procedures."
+            },
+            {
+                question: "94. A nurse is receiving the laboratory report of a client who is 24hr postpartum vaginal delivery. Which of the following actions should the nurse take first?",
+                options: [
+                    "initiate IV access for isotonic solution with an 18 gauge catheter",
+                    "prepare the client for a blood transfusion",
+                    "Instruct th client that the provider will check for placental fragment",
+                    "Administer an iron supplement to the client."
+                ],
+                correct: 3,
+                rationale: "Iron supplementation is the first-line treatment for postpartum anemia unless the client is symptomatic or severely anemic.",
+                image: 'medication_safety',
+                hint: "Consider initial management of postpartum anemia."
+            },
+            {
+                question: "95. A nurse is assessing a full term newborn upon admission to the",
+                options: [
+                    "Rust stained urine",
+                    "Transient circumoral cyanosis",
+                    "subconjunctival hemorrhage",
+                    "single palmer creases"
+                ],
+                correct: 3,
+                rationale: "Single palmar creases may be associated with Down syndrome and should be documented and reported.",
+                image: 'patient_assessment',
+                hint: "Consider physical findings associated with genetic conditions."
+            },
+            {
+                question: "96. A nurse is caring for a client who is in preterm labor and receiving magnesium sulfate by review during tocolytic therapy.",
+                options: [
+                    "serum medication level",
+                    "Uric add level",
+                    "liver enzymes",
+                    "indirect coombs test."
+                ],
+                correct: 0,
+                rationale: "Serum magnesium levels must be monitored to maintain therapeutic range and prevent toxicity.",
+                image: 'laboratory_values',
+                hint: "Consider monitoring for magnesium sulfate therapy."
+            },
+            {
+                question: "97. A nurse is teaching a newly licensed nurse about the use of ultrasonography in the first trimester. The nurse indicates an understanding of the teaching.",
+                options: [
+                    "Ultrasound is used to observe for placental maturity in the first trimester",
+                    "Ultrasound is used to detect intrauterine growth restriction in the first trimester",
+                    "Ultrasound is used to determine gestational age in the first semester.",
+                    "ultrasound is used to perform a biophysical profile in the first trimester."
+                ],
+                correct: 2,
+                rationale: "First-trimester ultrasound is primarily used for dating pregnancy and confirming viability.",
+                image: 'patient_assessment',
+                hint: "Consider primary uses of first-trimester ultrasound."
+            },
+            {
+                question: "98. A nurse is preparing to perform a non stress test for a client who is at 34 week of gestation. Which.......",
+                options: [
+                    "Place the client in the supine position at the beginning of the test",
+                    "administer oxygen via facemask during the test",
+                    "Insert a peripheral IV catheter into the right arm before the test",
+                    "Record the fetal heart rate for 20 mins during the test."
+                ],
+                correct: 3,
+                rationale: "A standard non-stress test involves 20 minutes of fetal heart rate monitoring to assess for accelerations with movement.",
+                image: 'patient_assessment',
+                hint: "Consider standard NST procedure."
+            },
+            {
+                question: "99. A nurse is caring for a preterm newborn 18hrs. following delivery. After reviewing the newborn. On the exhibit button for additional information about the newborn. There are 3 tabs.",
+                options: [
+                    "initiate phototherapy",
+                    "initiate gavage feeding",
+                    "administer oxygen",
+                    "administer an antibiotic"
+                ],
+                correct: 0,
+                rationale: "Preterm newborns are at high risk for hyperbilirubinemia and often require early phototherapy.",
+                image: 'patient_care',
+                hint: "Consider common complications in preterm newborns."
+            },
+            {
+                question: "100. A nurse is providing teaching to a client who has phenylketonuria and wants to become pregnant. which of the following information should the nurse.",
+                options: [
+                    "your doctor will monitor your phenylalanine levels twice weekly throughout your pregnancy",
+                    "your doctor will perform an amniocentesis right before delivery to test your baby for phenylketonuria",
+                    "you will need to increase your protein intake to 50 percent of your daily caloric intake",
+                    "you will need to undergo labor induction with oxytocin at 38 weeks of gestation."
+                ],
+                correct: 0,
+                rationale: "Close monitoring of phenylalanine levels is essential during pregnancy to prevent fetal complications in women with PKU.",
+                image: 'patient_education',
+                hint: "Consider pregnancy management for metabolic disorders."
+            },
+            {
+                question: "101. A nurse is assessing a client who has preeclampsia and is receiving magnesium sulfate via continuous IV infusion. Which of the following findings should the nurse report to the provider? (Select all that apply.)",
+                options: [
+                    "Urine output 130 mL/4 hr",
+                    "Respiratory rate 11/min",
+                    "Deep-tendon reflexes absent",
+                    "Flushing of the face",
+                    "Fetal heart rate 120/min"
+                ],
+                correct: 1,
+                rationale: "Respiratory depression and absent reflexes are signs of magnesium toxicity requiring immediate intervention.",
+                image: 'medication_safety',
+                hint: "Consider signs of magnesium toxicity."
+            },
+            {
+                question: "102. A nurse is assessing a full-term newborn. Which of the following findings should the nurse report to the provider?",
+                options: [
+                    "Blood pressure 80/50 mm Hg",
+                    "Respiratory rate 55/min",
+                    "Temperature 36.5 C (97.7 F)",
+                    "Heart rate 72/min"
+                ],
+                correct: 3,
+                rationale: "Heart rate of 72/min is bradycardic for a newborn (normal 120-160/min) and requires immediate evaluation.",
+                image: 'patient_assessment',
+                hint: "Consider normal newborn vital sign ranges."
+            },
+            {
+                question: "103. A nurse is reviewing the medical record of a client who had a vaginal delivery 3 hours ago. Which of the following findings place the client at risk for postpartum hemorrhage? (Select all that apply.)",
+                options: [
+                    "Newborn weight 2.948 kg (6 lb 8 oz)",
+                    "History of human papillomavirus",
+                    "Labor induction with oxytocin",
+                    "History of uterine atony",
+                    "Vacuum-assisted delivery"
+                ],
+                correct: 2,
+                rationale: "Oxytocin induction and history of uterine atony are significant risk factors for postpartum hemorrhage.",
+                image: 'patient_safety',
+                hint: "Consider risk factors for postpartum hemorrhage."
+            },
+            {
+                question: "104. A nurse is assessing a client who is 2 days postpartum. Which of the following findings indicates a complication?",
+                options: [
+                    "Platelet count 370,000/mm^3",
+                    "Hct 36%",
+                    "Hypotonic uterus",
+                    "Perineal edema"
+                ],
+                correct: 2,
+                rationale: "A hypotonic (boggy) uterus indicates uterine atony, which can lead to postpartum hemorrhage.",
+                image: 'patient_assessment',
+                hint: "Consider signs of uterine atony."
+            },
+            {
+                question: "105. A nurse is providing discharge instructions to a client who is breastfeeding her newborn. Which of the following instructions should the nurse include?",
+                options: [
+                    "Offer the newborn 30 mL (1 oz) of water between feedings",
+                    "Feed the newborn 5 to 10 min per breast",
+                    "Allow the baby to feed at least every 3 hours",
+                    "Expect two to four wet diapers every 24 hours"
+                ],
+                correct: 2,
+                rationale: "Frequent feeding (8-12 times in 24 hours) helps establish milk supply and ensure adequate nutrition.",
+                image: 'patient_education',
+                hint: "Consider breastfeeding frequency recommendations."
+            },
+            {
+                question: "106. A nurse is providing vehicle safety education to the parents of a premature newborn. Which of the following statements should the nurse include in the teaching?",
+                options: [
+                    "Your newborn will need to have a car seat test prior to discharge",
+                    "Place your newborn in a front-facing at seat in the back seat of the vehicle",
+                    "Position the retainer clip at the level of your newborn's abdomen",
+                    "You should secure your newborn's car seat at a 60-degree angle"
+                ],
+                correct: 0,
+                rationale: "Preterm infants often require car seat tolerance testing to ensure they can maintain oxygenation in a semi-upright position.",
+                image: 'patient_safety',
+                hint: "Consider special requirements for preterm infants."
+            },
+            {
+                question: "107. A nurse is admitting a client to the birthing unit who reports her contractions started 1 hour ago. The nurse determines the client is 80% effaced and 8 cm dilated. The nurse realizes that the client is at risk for which of the following conditions?",
+                options: [
+                    "Ectopic pregnancy",
+                    "Hyperemesis gravidarum",
+                    "Incompetent cervix",
+                    "Postpartum hemorrhage"
+                ],
+                correct: 3,
+                rationale: "Rapid labor progression increases risk for uterine atony and postpartum hemorrhage.",
+                image: 'patient_safety',
+                hint: "Consider complications of rapid labor."
+            },
+            {
+                question: "108. A nurse is teaching a client about using a diaphragm. Which of the following instructions should the nurse include in the teaching?",
+                options: [
+                    "Insert the diaphragm up to 12 hours before intercourse",
+                    "Replace the diaphragm every 2 years",
+                    "Use 2 teaspoons of baby oil to lubricate the diaphragm before insertion",
+                    "Remove the diaphragm 2 hours after intercourse"
+                ],
+                correct: 1,
+                rationale: "Diaphragms should be replaced every 2 years or after weight changes to ensure proper fit.",
+                image: 'patient_education',
+                hint: "Consider maintenance of barrier methods."
+            },
+            {
+                question: "109. A nurse is reviewing the immunization status of a client who is pregnant. The nurse should inform the client that it is safe for her to receive which of the following immunizations during pregnancy?",
+                options: [
+                    "Tetanus",
+                    "Rubeola",
+                    "Varicella",
+                    "Rubella"
+                ],
+                correct: 0,
+                rationale: "Tetanus vaccine is safe in pregnancy, while MMR and varicella are live vaccines contraindicated in pregnancy.",
+                image: 'patient_education',
+                hint: "Consider vaccine safety in pregnancy."
+            },
+            {
+                question: "110. A nurse in a clinic is caring for a client who is in her second trimester of pregnancy. The client expresses concern about preparing her 2-year-old child for a new sibling. Which of the following is an appropriate response by the nurse?",
+                options: [
+                    "Let your toddler see you carrying the baby into the home for the first time",
+                    "Require scheduled interactions between the toddler and the baby",
+                    "Move your toddler to his new bed 2 months before the baby comes home??",
+                    "Avoid brining your toddler to prenatal visits"
+                ],
+                correct: 1,
+                rationale: "Structured, positive interactions help toddlers adjust to new siblings while maintaining routine.",
+                image: 'therapeutic_communication',
+                hint: "Consider sibling preparation strategies."
+            },
+            {
+                question: "111. A nurse is caring for a client following an amniocentesis. The nurse should observe the client for which of the following complications?",
+                options: [
+                    "Hemorrhage",
+                    "Hyperemesis",
+                    "Hypoxia",
+                    "Proteinuria"
+                ],
+                correct: 0,
+                rationale: "Bleeding is a potential complication of amniocentesis due to the invasive nature of the procedure.",
+                image: 'patient_safety',
+                hint: "Consider complications of invasive procedures."
+            },
+            {
+                question: "112. A nurse is performing a heel stick on a newborn. Which of the following actions should the nurse take?",
+                options: [
+                    "Place an ice pack on the newborn's heel 5 min before the procedure",
+                    "Cleanse the newborn's heel with an alcohol swab after the procedure",
+                    "Puncture the heel on the inner aspect of the foot",
+                    "Use an automatic puncture device on the heel"
+                ],
+                correct: 3,
+                rationale: "Automatic puncture devices provide standardized depth and reduce pain compared to manual lancets.",
+                image: 'patient_care',
+                hint: "Consider best practices for newborn blood collection."
+            },
+            {
+                question: "113. A nurse is caring for a client who is receiving magnesium sulfate by continuous IV infusion for sever preeclampsia. Which of the following findings should the nurse report to the provider?",
+                options: [
+                    "Absence of clonus",
+                    "Deep tendon reflex +2",
+                    "Facial flushing",
+                    "Urine output 20 mL/hr"
+                ],
+                correct: 3,
+                rationale: "Low urine output impairs magnesium clearance and increases risk of toxicity.",
+                image: 'medication_safety',
+                hint: "Consider monitoring for magnesium sulfate therapy."
+            },
+            {
+                question: "114. A nurse is reviewing the laboratory report of a client who is 24 hrs postpartum vaginal delivery. The client has a hemoglobin level of 9.0 g/dL and hematocrit of 25%. Which of the following actions should the nurse take?",
+                options: [
+                    "Administer an iron supplement to the client",
+                    "Instruct the client that the provider will check for placental fragments",
+                    "Initiate IV access for isotonic solution with an 18-gauge catheter",
+                    "Prepare the client for a blood transfusion"
+                ],
+                correct: 2,
+                rationale: "IV access allows for fluid resuscitation if needed and prepares for possible transfusion if the client becomes symptomatic.",
+                image: 'patient_care',
+                hint: "Consider preparation for potential interventions."
+            },
+            {
+                question: "115. A nurse is caring for a newborn who has erstrophy of the bladder. Which of the following actions should the nurse take prior to the beginning of surgical correction?",
+                options: [
+                    "Exert gentle pressure on the newborn's bladder with sterile gauze",
+                    "Restrict the newborn's fluid intake",
+                    "Cover the newborn's bladder with a sterile, non-adherent dressing",
+                    "Keep the newborn in a side-lying position"
+                ],
+                correct: 2,
+                rationale: "Protecting the exposed bladder mucosa with sterile dressing prevents infection and trauma before surgical repair.",
+                image: 'wound_care',
+                hint: "Consider preoperative care for bladder exstrophy."
+            },
+            {
+                question: "116. A nurse is caring for a client who is in labor. The nurse observes late decelerations of the fetal heart rate on the external fetal monitor. After placing the client in a side-lying position, which of the following actions should the nurse take?",
+                options: [
+                    "Administer oxygen via a face mask",
+                    "Elevate the client's head",
+                    "Perform fetal scalp stimulation",
+                    "Decrease the rate of IV fluids"
+                ],
+                correct: 0,
+                rationale: "Oxygen administration improves fetal oxygenation in response to late decelerations indicating uteroplacental insufficiency.",
+                image: 'emergency_care',
+                hint: "Consider interventions for late decelerations."
+            },
+            {
+                question: "117. A nurse is caring for a client who is in active labor and has gonorrhea. For which of the following potential complications of gonorrhea should the nurse monitor?",
+                options: [
+                    "Oligohydramnios",
+                    "Vaginal laceration during birth",
+                    "Excessive bleeding after birth",
+                    "Chorioamnionitis"
+                ],
+                correct: 3,
+                rationale: "Gonorrhea can ascend and cause chorioamnionitis, an infection of the fetal membranes.",
+                image: 'infection_control',
+                hint: "Consider ascending infections in STIs."
+            },
+            {
+                question: "118. A nurse in a provider's office is caring for a 20-year-old client who is at 12 weeks of gestation and requests an amniocentesis to determine the gender of the fetus. Which of the following responses should the nurse make?",
+                options: [
+                    "We can schedule the procedure for later today if you'd like",
+                    "This procedure determines if your baby has genetic or congenital disorders",
+                    "You cannot have an amniocentesis until you are at least 35 years of age",
+                    "Your provider will schedule a chorionic villus sampling to determine the sex of your baby"
+                ],
+                correct: 1,
+                rationale: "Amniocentesis is an invasive procedure with risks, reserved for genetic diagnosis rather than gender determination alone.",
+                image: 'patient_education',
+                hint: "Consider appropriate use of diagnostic procedures."
+            },
+            {
+                question: "119. A nurse is caring for four newborns. Which of the following findings should the nurse report to the provider?",
+                options: [
+                    "A newborn who has a high-pitched cry with exaggerated Moro reflex",
+                    "A female newborn who has blood-tinged vaginal discharge",
+                    "A male newborn who has scrotal edema",
+                    "A newborn who has molding with overlapping suture lines"
+                ],
+                correct: 0,
+                rationale: "High-pitched cry and exaggerated reflexes can indicate neurological issues requiring evaluation.",
+                image: 'patient_assessment',
+                hint: "Consider neurological signs in newborns."
+            },
+            {
+                question: "120. A nurse is preparing to administer methylergonovine 0.2 mg orally to a client who is 2 hours postpartum and has a boggy uterus. For which of the following assessment findings should the nurse withhold the medication?",
+                options: [
+                    "Blood pressure 142/92 mm Hg",
+                    "Urine output 100 mL in 3 hours",
+                    "Respiratory rate 14/min",
+                    "Pulse rate 58/min"
+                ],
+                correct: 0,
+                rationale: "Methylergonovine is contraindicated in hypertension as it can cause severe vasoconstriction.",
+                image: 'medication_safety',
+                hint: "Consider contraindications for ergot alkaloids."
+            },
+            {
+                question: "121. A nurse is providing discharge instructions to a client who is 24 hours postpartum and has decided not to breastfeed. Which of the following instructions should the nurse include in the teaching?",
+                options: [
+                    "Pump your breasts twice daily to relieve discomfort from engorgement",
+                    "Shower daily, allowing warm water to run directly over your breasts",
+                    "Apply ice packs to your breasts using a 15 minutes on, 45 minutes off schedule",
+                    "Wear a loose-fitting, nonbinding bra for 72 hours"
+                ],
+                correct: 2,
+                rationale: "Ice packs help relieve engorgement discomfort by reducing swelling and milk production through vasoconstriction.",
+                image: 'patient_education',
+                hint: "Consider non-pharmacological management of breast engorgement."
+            },
+            {
+                question: "122. A nurse is planning care for a newborn who is to undergo a circumcision using a plastic bell device. Which of the following interventions should the nurse include in the plan of care?",
+                options: [
+                    "Monitor for bleeding every 15 min for the first hour",
+                    "Remove the yellow drainage on the second postoperative day",
+                    "Take off the plastic bell 2 hours after the procedure",
+                    "Wash the circumcision site with mild soap and water 2 hours following the procedure"
+                ],
+                correct: 0,
+                rationale: "Frequent monitoring for bleeding is essential in the immediate postoperative period following circumcision.",
+                image: 'patient_safety',
+                hint: "Consider postoperative monitoring for surgical procedures."
+            },
+            {
+                question: "123. A nurse is assessing a newborn upon admission to the nursery. Which of the following findings should the nurse expect?",
+                options: [
+                    "Chest circumference 2 cm (0.5 in) smaller than the head circumference",
+                    "Length from head to heel of 40 cm (15.7 in)",
+                    "Bulging fontanels",
+                    "Nasal flaring"
+                ],
+                correct: 0,
+                rationale: "Newborn head circumference is normally 2-3 cm larger than chest circumference at birth.",
+                image: 'patient_assessment',
+                hint: "Consider normal newborn anatomical proportions."
+            },
+            {
+                question: "124. A nurse is performing an initial assessment of a newborn who was delivered with a nuchal cord. Which of the following clinical findings should the nurse expect?",
+                options: [
+                    "Facial petechiae",
+                    "Erythema toxicum",
+                    "Teiangiectatic nevi",
+                    "Periauricular papillomas"
+                ],
+                correct: 0,
+                rationale: "Facial petechiae can result from pressure from the umbilical cord around the neck during delivery.",
+                image: 'patient_assessment',
+                hint: "Consider effects of nuchal cord."
+            },
+            {
+                question: "125. A nurse is planning to teach a group of clients who are pregnant about breastfeeding after returning to work. Which of the following information should the nurse include in the teaching?",
+                options: [
+                    "Thawed breast milk that is unused can be refrozen",
+                    "Breast milk can be stored in a deep freezer for 12 months",
+                    "Breast milk can be stored at room temperature for up to 12 hours",
+                    "Thawed breast milk can be refrigerated for up to 72 hours"
+                ],
+                correct: 1,
+                rationale: "Breast milk can be safely stored in a deep freezer for up to 12 months while maintaining nutritional quality.",
+                image: 'patient_education',
+                hint: "Consider breast milk storage guidelines."
+            },
+            {
+                question: "126. A nurse in a prenatal clinic is caring for a group of clients. Which of the following clients should the nurse recommend for an interdisciplinary care conference?",
+                options: [
+                    "A client who is at 37 weeks of gestation and has an L/S ratio of 2:1",
+                    "A client who is at 39 weeks of gestation and has a negative contraction stress test",
+                    "A client who is at 35 weeks of gestation and has a biophysical profile of 6",
+                    "A client who is at 28 weeks of gestation and has a negative Coomb's titer"
+                ],
+                correct: 2,
+                rationale: "A biophysical profile score of 6/10 indicates possible fetal compromise requiring multidisciplinary management.",
+                image: 'patient_care',
+                hint: "Consider indications for fetal surveillance."
+            },
+            {
+                question: "127. A nurse is providing teaching about expected changes during pregnancy to a client who is at 24 weeks of gestation. Which of the following information should the nurse include?",
+                options: [
+                    "Your nipples will become lighter in color",
+                    "Your stomach will empty readily",
+                    "You should anticipate nasal stuffiness",
+                    "You should expect your uterus to double in size"
+                ],
+                correct: 2,
+                rationale: "Nasal stuffiness (rhinitis of pregnancy) is common due to increased estrogen and blood flow to mucous membranes.",
+                image: 'patient_education',
+                hint: "Consider common pregnancy discomforts."
+            },
+            {
+                question: "128. A nurse is planning care for a client who is receiving oxytocin by continuous IV infusion for labor induction. Which of the following interventions should the nurse include in the plan?",
+                options: [
+                    "Limit IV intake to 4 L per 24 hr",
+                    "Titrate the infusion rate by 4 milliunits/min",
+                    "Maintain the client in a supine position",
+                    "Increase the infusion rate every 30 to 60 min"
+                ],
+                correct: 3,
+                rationale: "Oxytocin should be increased gradually every 30-60 minutes until adequate labor pattern is established.",
+                image: 'medication_safety',
+                hint: "Consider oxytocin titration protocols."
+            },
+            {
+                question: "129. A nurse is teaching a client who is at 8 weeks of gestation about self-care during pregnancy. Which of the following statements should the nurse make?",
+                options: [
+                    "You can take black cohost once a day for insomnia",
+                    "You should limit your daily fluid intake to 1,000 mL per day",
+                    "You can take 400 mg of ibuprofen for discomfort",
+                    "You should take 600 mcg of folic acid per day"
+                ],
+                correct: 3,
+                rationale: "Folic acid supplementation (400-800 mcg daily) is recommended throughout pregnancy to prevent neural tube defects.",
+                image: 'patient_education',
+                hint: "Consider essential prenatal supplements."
+            },
+            {
+                question: "130. A nurse is caring for a client who is postpartum and experiencing hypovolemic shock. Which of the following findings should the nurse expect?",
+                options: [
+                    "Urine output 30 mL/hr",
+                    "Respiratory rate 18/min",
+                    "Bounding pulses",
+                    "Cool, clammy skin"
+                ],
+                correct: 3,
+                rationale: "Cool, clammy skin indicates peripheral vasoconstriction and compensatory mechanisms in hypovolemic shock.",
+                image: 'emergency_care',
+                hint: "Consider signs of shock."
+            },
+            {
+                question: "131. A nurse in the antepartum clinic is teaching a client who is at 28 weeks of gestation and has preeclampsia. Which of the following instructions should the nurse include in the teaching?",
+                options: [
+                    "Alternate arms each time you check your BP",
+                    "Reduce your calcium intake to less than 1 g per day",
+                    "Count your baby's movements daily",
+                    "Limit your fluid intake to four 8 oz glasses per day"
+                ],
+                correct: 2,
+                rationale: "Daily fetal movement counting helps monitor fetal wellbeing in high-risk pregnancies like preeclampsia.",
+                image: 'patient_education',
+                hint: "Consider fetal surveillance in high-risk pregnancies."
+            },
+            {
+                question: "132. A nurse is planning care for a client in the postpartum unit. Which of the following goals should the nurse identify for the client to accomplish during the taking-in phase of postpartum adjustment?",
+                options: [
+                    "The client will verbalize appropriate car seat safety",
+                    "The client will identify individual family member roles",
+                    "The client will demonstrate proper bathing of the infant",
+                    "The client will have adequate nutritional intake"
+                ],
+                correct: 3,
+                rationale: "During the taking-in phase (first 1-2 days postpartum), the focus is on meeting basic physiological needs like nutrition and rest.",
+                image: 'patient_care',
+                hint: "Consider phases of postpartum adjustment."
+            },
+            {
+                question: "133. A nurse is providing education to a client who is to receive misoprostol for induction of labor. Which of the following instructions should the nurse include in the teaching?",
+                options: [
+                    "I will insert a urinary catheter before I administer the medication",
+                    "You will receive an antacid containing magnesium before the medication",
+                    "You will lie on your side for 40 minutes after I administer the medication",
+                    "I will begin an oxytocin infusion within 2 hours of your last dose of medication"
+                ],
+                correct: 2,
+                rationale: "Remaining recumbent after vaginal misoprostol administration helps maintain medication placement and absorption.",
+                image: 'medication_safety',
+                hint: "Consider administration techniques for vaginal medications."
+            },
+            {
+                question: "134. A nurse is teaching a client about the basal body temperature method of contraception. Which of the following statements should the nurse include in the teaching?",
+                options: [
+                    "Your temperature may increase slightly immediately prior to ovulation",
+                    "You should take your temperature before getting up for the day",
+                    "You should abstain from intercourse when your temperature is above 100 F",
+                    "Your risk of pregnancy is greatest on days 21 to 28 of your cycle"
+                ],
+                correct: 1,
+                rationale: "Basal body temperature should be measured immediately upon waking, before any activity, for accurate tracking.",
+                image: 'patient_education',
+                hint: "Consider proper technique for BBT monitoring."
+            },
+            {
+                question: "135. A nurse manager on the labor and delivery unit is teaching a group of newly licensed nurses about maternal cytomegalovirus. Which of the following information should the nurse manager include in the teaching?",
+                options: [
+                    "Transmission can occur via the saliva and urine of the newborn",
+                    "This infection requires airborne precautions are initiated for the newborn",
+                    "Lesions are visible on the mother's genitalia",
+                    "Mothers will receive prophylactic treatment with acyclovir prior to delivery"
+                ],
+                correct: 0,
+                rationale: "CMV can be transmitted through contact with infected body fluids including saliva and urine from infected newborns.",
+                image: 'infection_control',
+                hint: "Consider transmission routes for CMV."
+            },
+            {
+                question: "136. A nurse is caring for a client who is 8 hr postpartum following vaginal delivery and is unable to void. Which of the following interventions should the nurse use to promote voiding?",
+                options: [
+                    "Encourage the client to void in the shower",
+                    "Insert an indwelling urinary catheter",
+                    "Apply suprapubic pressure",
+                    "Administer a diuretic to the client"
+                ],
+                correct: 1,
+                rationale: "Catheterization may be necessary to relieve bladder distension and prevent urinary retention complications.",
+                image: 'patient_care',
+                hint: "Consider interventions for urinary retention."
+            },
+            {
+                question: "137. A nurse manager in a newborn nursery is reviewing infection control procedures with a group of newly hired nurses. Which of the following instructions should the nurse manager include in the teaching?",
+                options: [
+                    "Allow parents to enter the nursery if they are wearing a mask",
+                    "Place newborn bassinets at least 3 feet apart",
+                    "Place the newborn's foot on a sterile field during a heel stick",
+                    "Maintain airborne precautions in the nursery"
+                ],
+                correct: 0,
+                rationale: "Parent visitation with proper masking helps prevent infection transmission while supporting bonding.",
+                image: 'infection_control',
+                hint: "Consider infection control in newborn settings."
+            },
+            {
+                question: "138. A nurse is assessing the fetal heart rate for a client who is at 38 weeks of gestation. When using an ultrasound device, the nurse hears blood rushing through the umbilical vessels in synchronization with the fetal heartbeat. Which of the following terms should the nurse use to document this finding?",
+                options: [
+                    "Funic soufflé",
+                    "Quickening",
+                    "Hegar's sign",
+                    "Goodell's sign"
+                ],
+                correct: 0,
+                rationale: "Funic soufflé refers to the sound of blood rushing through the umbilical vessels, synchronized with the fetal heartbeat.",
+                image: 'patient_assessment',
+                hint: "Consider terms for umbilical cord sounds."
+            },
+            {
+                question: "139. A nurse in a clinic is preparing to measure the fundal height of a client who is pregnant. Which of the following actions should the nurse take?",
+                options: [
+                    "Place the client in a left-lateral position to obtain the measurement",
+                    "Measure from the upper border of the symphysis pubis to the upper border of the fundus",
+                    "Ensure that the client has a full bladder before taking the measurement",
+                    "Lay the tape measure horizontally over the middle of the client's abdomen"
+                ],
+                correct: 1,
+                rationale: "Fundal height is measured from the symphysis pubis to the top of the uterine fundus using a tape measure.",
+                image: 'patient_assessment',
+                hint: "Consider proper technique for fundal height measurement."
+            },
+            {
+                question: "140. A nurse is assessing a client who is at 27 weeks of gestation and has preeclampsia. Which of the following findings should the nurse report to the provider?",
+                options: [
+                    "Hemoglobin 14.8 g/dL",
+                    "Platelet count 60,000/mm^3",
+                    "Urine protein concentration 200 mg/24 hr",
+                    "Creatinine 0.8 mg/dL"
+                ],
+                correct: 1,
+                rationale: "Platelet count below 100,000/mm³ indicates thrombocytopenia, which can be part of HELLP syndrome in severe preeclampsia.",
+                image: 'laboratory_values',
+                hint: "Consider laboratory values in severe preeclampsia."
+            },
+            {
+                question: "141. A nurse is caring for a client who is in labor. Which of the following findings should prompt the nurse to reassess the client?",
+                options: [
+                    "A sense of excitement and warm, flushed skin",
+                    "An urge to have a bowel movement during contractions",
+                    "Intense contractions lasting 45 to 60 seconds",
+                    "Progressive sacral discomfort during contractions"
+                ],
+                correct: 1,
+                rationale: "An urge to bear down or have a bowel movement may indicate complete cervical dilation and imminent delivery.",
+                image: 'patient_assessment',
+                hint: "Consider signs of transition to second stage labor."
+            },
+            {
+                question: "142. A nurse is observing an adolescent client who is offering her newborn a bottle while he is lying in the bassinet. When the nurse offers to pick the newborn up and place him in the client's arms, the mother states, \"No, the baby is too tired to be held.\" Which of the following actions should the nurse take?",
+                options: [
+                    "Offer to take the newborn to the nursery to finish his feeding",
+                    "Persuade the client to breastfeed the newborn to promote bonding",
+                    "Insist that the mother pick the newborn up to feed him",
+                    "Demonstrate how to hold the newborn and allow the client to practice"
+                ],
+                correct: 3,
+                rationale: "Gentle demonstration and practice helps adolescent parents build confidence in newborn care skills.",
+                image: 'patient_education',
+                hint: "Consider developmental approaches for adolescent parents."
+            },
+            {
+                question: "143. A nurse is caring for a client immediately following the delivery of a stillborn fetus. Which of the following actions should the nurse take?",
+                options: [
+                    "Prepare the client for what to expect the fetus to look like",
+                    "Instruct the client that an autopsy should be performed within 24 hr",
+                    "Inform the client that the law requires her to name the fetus",
+                    "Limit the amount of time the fetus is in the client's room"
+                ],
+                correct: 0,
+                rationale: "Preparing parents for the appearance of a stillborn fetus helps facilitate the grieving process and creates realistic expectations.",
+                image: 'therapeutic_communication',
+                hint: "Consider bereavement care for perinatal loss."
+            },
+            {
+                question: "144. A nurse is providing discharge instructions to a client who is postpartum and has engorged breasts. Which of the following nonpharmacological comfort measures should the nurse include in the teaching?",
+                options: [
+                    "Wear nipple shields during the feeding",
+                    "Apply cabbage leaves after feedings",
+                    "Use a breast binder for 2 days",
+                    "Use plastic-lined breast pads"
+                ],
+                correct: 1,
+                rationale: "Cabbage leaves have anti-inflammatory properties that can provide relief from breast engorgement discomfort.",
+                image: 'patient_education',
+                hint: "Consider non-pharmacological remedies for breast engorgement."
+            },
+            {
+                question: "145. A nurse is caring for a client who delivered by cesarean birth 6 hr ago. The nurse notes a steady trickle of vaginal bleeding that does not stop with fundal massage. Which of the following actions should the nurse take?",
+                options: [
+                    "Replace the surgical dressing",
+                    "Administer 500 mL lactated ringer's IV bolus",
+                    "Apply an ice pack to the incision site",
+                    "Evaluate urinary output"
+                ],
+                correct: 1,
+                rationale: "IV fluid bolus helps maintain circulating volume while investigating the cause of persistent bleeding.",
+                image: 'emergency_care',
+                hint: "Consider initial management for postoperative bleeding."
+            },
+            {
+                question: "146. A nurse manager is revising a maternal unit policy to ensure proper identification of newborns. Which of the following should the nurse include in the policy?",
+                options: [
+                    "Check the newborn's identification using the crib card",
+                    "Replace the infant's identification band after his name has been recorded",
+                    "Require visitors to wear an identification band",
+                    "Obtain an imprint of the infant's feet prior to taking him to the nursery"
+                ],
+                correct: 3,
+                rationale: "Footprinting provides permanent identification that cannot be lost or removed, enhancing newborn security.",
+                image: 'patient_safety',
+                hint: "Consider permanent identification methods for newborns."
+            },
+            {
+                question: "147. A nurse is teaching a prenatal class regarding false labor. Which of the following information should the nurse include?",
+                options: [
+                    "You will have dilation and effacement of the cervix",
+                    "Your contractions will become temporarily regular",
+                    "You will have bloody show",
+                    "Your contractions will become more intense when walking"
+                ],
+                correct: 1,
+                rationale: "False labor contractions may temporarily pattern but don't progress in intensity, frequency, or duration like true labor.",
+                image: 'patient_education',
+                hint: "Consider characteristics of Braxton Hicks contractions."
+            },
+            {
+                question: "148. A nurse is providing teaching about the expected effects of magnesium sulfate to a client who is at 28 weeks of gestation and has preeclampsia. Which of the following responses by the nurse is appropriate?",
+                options: [
+                    "This medication prevents seizures",
+                    "This medication stabilizes the fetal heart rate",
+                    "This medication increases cardiac output",
+                    "This medication improves tissue perfusion"
+                ],
+                correct: 0,
+                rationale: "Magnesium sulfate is administered for seizure prophylaxis in preeclampsia/eclampsia.",
+                image: 'medication_safety',
+                hint: "Consider the therapeutic purpose of magnesium sulfate."
+            },
+            {
+                question: "149. A nurse is caring for a client who is 2 weeks postpartum following a cesarean birth. Which of the following clinical findings should the nurse identify as an indication of postpartum infection?",
+                options: [
+                    "Persistent abdominal striae",
+                    "Unilateral breast pain",
+                    "WBC count 12,000/mm^3",
+                    "Lochia alba"
+                ],
+                correct: 1,
+                rationale: "Unilateral breast pain with redness and warmth may indicate mastitis, a common postpartum infection.",
+                image: 'infection_control',
+                hint: "Consider signs of postpartum infections."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let selectedOption = null;
+        let score = 0;
+        let answers = Array(questions.length).fill(null);
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById('question').textContent = question.question;
+            document.getElementById('counter').textContent = `${currentQuestion + 1}/${questions.length}`;
+            
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            const imageContainer = document.getElementById('imageContainer');
+            const conceptImage = document.getElementById('conceptImage');
+            if (question.image && nursingImages[question.image]) {
+                conceptImage.src = nursingImages[question.image];
+                imageContainer.style.display = 'flex';
+            } else {
+                imageContainer.style.display = 'none';
+            }
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.innerHTML = `
+                    <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                    <div class="option-text">${option}</div>
+                `;
+                optionElement.onclick = () => selectOption(index);
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            document.getElementById('feedback').className = 'feedback';
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('rationale').className = 'rationale';
+            document.getElementById('hint').className = 'hint';
+            
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Finish ➡️' : 'Next ➡️';
+            document.getElementById('nextBtn').disabled = answers[currentQuestion] === null;
+            
+            document.getElementById('cancelBtn').classList.remove('show');
+            
+            if (answers[currentQuestion] !== null) {
+                selectOption(answers[currentQuestion], true);
+            }
+        }
+
+        function selectOption(index, fromMemory = false) {
+            if (fromMemory) {
+                highlightSelectedOption(index);
+                showFeedback(index);
+                return;
+            }
+            
+            if (selectedOption !== null && !fromMemory) return;
+            
+            selectedOption = index;
+            answers[currentQuestion] = index;
+            
+            highlightSelectedOption(index);
+            showFeedback(index);
+            
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function cancelSelection() {
+            selectedOption = null;
+            answers[currentQuestion] = null;
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect', 'selected');
+            });
+            
+            document.getElementById('feedback').style.display = 'none';
+            document.getElementById('rationale').classList.remove('show');
+            document.getElementById('cancelBtn').classList.remove('show');
+            document.getElementById('nextBtn').disabled = true;
+        }
+
+        function highlightSelectedOption(index) {
+            const options = document.querySelectorAll('.option');
+            const question = questions[currentQuestion];
+            
+            options.forEach((option, i) => {
+                option.classList.remove('correct', 'incorrect', 'selected');
+                
+                if (i === index) {
+                    option.classList.add('selected');
+                    
+                    if (i === question.correct) {
+                        option.classList.add('correct');
+                        if (!answers[currentQuestion]) score++;
+                        document.getElementById('cancelBtn').classList.remove('show');
+                    } else {
+                        option.classList.add('incorrect');
+                        options[question.correct].classList.add('correct');
+                        document.getElementById('cancelBtn').classList.add('show');
+                    }
+                }
+            });
+        }
+
+        function showFeedback(index) {
+            const question = questions[currentQuestion];
+            const feedback = document.getElementById('feedback');
+            const feedbackIcon = document.getElementById('feedbackIcon');
+            const feedbackText = document.getElementById('feedbackText');
+            const rationale = document.getElementById('rationale');
+            const rationaleText = document.getElementById('rationaleText');
+            
+            if (index === question.correct) {
+                feedback.className = 'feedback correct';
+                feedbackIcon.textContent = '✅';
+                feedbackText.textContent = 'Correct! Well done.';
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedbackIcon.textContent = '❌';
+                feedbackText.textContent = `Incorrect. The right answer is: ${String.fromCharCode(65 + question.correct)}`;
+            }
+            
+            feedback.style.display = 'flex';
+            rationaleText.textContent = question.rationale;
+            rationale.classList.add('show');
+        }
+
+        function showHint() {
+            const hint = document.getElementById('hint');
+            const hintText = document.getElementById('hintText');
+            const question = questions[currentQuestion];
+            
+            hintText.textContent = question.hint;
+            hint.classList.add('show');
+        }
+
+        function nextCard() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                selectedOption = null;
+                loadQuestion();
+            } else {
+                alert(`Quiz completed! Your score: ${score}/${questions.length}`);
+                currentQuestion = 0;
+                selectedOption = null;
+                score = 0;
+                answers = Array(questions.length).fill(null);
+                loadQuestion();
+            }
+        }
+
+        function previousCard() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                selectedOption = answers[currentQuestion];
+                loadQuestion();
+            }
+        }
+
+        // Initialize the app
+        loadQuestion();
+    </script>
+</body>
+</html>
